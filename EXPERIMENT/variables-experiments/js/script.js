@@ -19,22 +19,20 @@ function preload() {
 /**
  * Description of setup
 */
-let circleSize;
-let backgroundColor=0;
-let circleX=250;
-let circleY=250;
+let backgroundShade = 0;
+let circleX = 0;
+let circleY = 250;
+let circleSize = 100;
+let speed = 1;
+let acceleration = 0.2;
+
 function setup() {
-// Canvas is the size of the window
-createCanvas(500,500);
-circleSize = 200;
+  createCanvas(500,500);
 }
 
-
-/**
- * Description of draw()
-*/
 function draw() {
-    background(backgroundColor);
+  background(backgroundShade);
   ellipse(circleX,circleY,circleSize);
-  
+  circleX = circleX + speed;
+  speed += acceleration;
 }
