@@ -20,7 +20,8 @@ function preload() {
  * Description of setup
 */
 function setup() {
-
+// Canvas is the size of the window
+createCanvas(windowWidth,200);
 }
 
 
@@ -28,5 +29,8 @@ function setup() {
  * Description of draw()
 */
 function draw() {
-
+    background(255,0,0);
+  // Draw a square in the centre of the canvas
+  rectMode(CENTER);
+  rect(width/2,height/2,100,100);
 }
