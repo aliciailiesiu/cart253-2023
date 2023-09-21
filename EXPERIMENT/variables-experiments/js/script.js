@@ -19,9 +19,14 @@ function preload() {
 /**
  * Description of setup
 */
+let circleSize;
+let backgroundColor=0;
+let circleX=250;
+let circleY=250;
 function setup() {
 // Canvas is the size of the window
-createCanvas(windowWidth,200);
+createCanvas(500,500);
+circleSize = 200;
 }
 
 
@@ -29,8 +34,7 @@ createCanvas(windowWidth,200);
  * Description of draw()
 */
 function draw() {
-    background(255,0,0);
-  // Draw a square in the centre of the canvas
-  rectMode(CENTER);
-  rect(width/2,height/2,100,100);
+    background(backgroundColor);
+  ellipse(circleX,circleY,circleSize);
+  
 }
