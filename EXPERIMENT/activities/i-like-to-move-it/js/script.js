@@ -14,21 +14,19 @@
 function preload() {
 
 }
-let backgroundShade = 0;
-let circle = {
-  x: 0, //  0 so it starts on the left
-  y: 250,
-  size: 100,
-  fill: 0,
-  speed: 1
-}
 
+
+/**
+ * Description of setup
+*/
 function setup() {
-  createCanvas(500, 500);
+
 }
 
+
+/**
+ * Description of draw()
+*/
 function draw() {
-  
 
-
- }
+}
