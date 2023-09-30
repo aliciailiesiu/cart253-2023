@@ -88,10 +88,10 @@ if (mouseX > covid19.x) {
   }
 
   // Then we actually APPLY these changes to `vx` and `vy` to the rect's position
-
-
   covid19.x = covid19.x + covid19.vx;
   covid19.y = covid19.y + covid19.vy;
+
+
 
 
 
