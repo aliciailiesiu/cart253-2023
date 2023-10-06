@@ -55,34 +55,6 @@ else if ( dy > 0) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //function setup() {
     //createCanvas(500,500);
 
@@ -96,14 +68,13 @@ else if ( dy > 0) {
     //console.log('39 inches is ${first} in meters');
 
 
-    //let second = toMeters(78);
     //console.log('78 inches is ${second} in meters');
 
   //}
 
-  //function toMeters(inches) {
-    //let meters = inches / 39;
-   // return meters;
-//}
+  function toMeters(inches) {
+    let meters = inches / 39;
+   return meters;
+}
 
 
