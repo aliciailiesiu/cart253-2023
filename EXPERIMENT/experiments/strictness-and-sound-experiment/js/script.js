@@ -8,11 +8,14 @@
 
 "use strict";
 
+
+let tools;
+
 /**
  * Description of preload
 */
 function preload() {
-
+    tools = loadSound(`assets/sounds/tools.wav`);
 }
 
 
@@ -20,7 +23,7 @@ function preload() {
  * Description of setup
 */
 function setup() {
-
+    createCanvas(500,500);
 }
 
 
@@ -28,5 +31,9 @@ function setup() {
  * Description of draw()
 */
 function draw() {
+    background(0);
+}
 
+function mousePressed() {
+   tools.play();
 }
