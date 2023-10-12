@@ -20,13 +20,13 @@ let blackColor = 0;
 
 //title variable
 let title = {
-    size: 70
+    size: 50
 }
 
 //instruction variable
 let instructionTitle = {
-    size: 50,
-    height: 100
+    size: 30,
+    height:60
 }
 
 //the garment choice text display variable
@@ -36,59 +36,60 @@ let clothingChoice = {
 
 //pink color fabric
 let pinkFabric = {
-    x:300,
-    y:450,
-    size:200,
-    radius:100,
+    x:220,
+    y:350,
+    size:120,
+    radius:60,
     fill: {
     red:230,
     green:174,
     blue:209
     },
-    strokeWeight:40
+    strokeWeight:20
 }
 
 //blue color fabric
 let blueFabric = {
-    x:730,
-    y:450,
-    size:200,
-    radius:100,
+    x:500,
+    y:350,
+    size:120,
+    radius:60,
     fill: {
     red:119,
     green:137,
     blue:168
     },
-    strokeWeight:40
+    strokeWeight:20
 }
 
 //purple color fabric
 let purpleFabric = {
-    x:1160,
-    y:450,
-    size:200,
-    radius:100,
+    x:780,
+    y:350,
+    size:120,
+    radius:60,
     fill: {
     red:217,
     green:173,
     blue:240
     },
-    strokeWeight:40
+    strokeWeight:20
 }
 
 //green color fabric
 let greenFabric = {
-    x:1600,
-    y:450,
-    size:200,
-    radius:100,
+    x:1060,
+    y:350,
+    size:120,
+    radius:60,
     fill: {
     red:173,
     green:194,
     blue:105,
-    strokeWeight:40
     },
+    strokeWeight:20
 }
+
 
 let bungeeShadeFont;//title style font
 
@@ -102,7 +103,7 @@ let jacket; //jacket choice of garment at the beginning
 
 let shirt; //shirt choice of garment at the beginning
 
-let state = `title` //possible state = garmentChoice, choicePants,choiceJacket, choiceShirt ,colorChoice, toolGrab, sewingSimulation, finalResult
+let state = `title` //possible state = garmentChoice, choicePants,choiceJacket, choiceShirt ,colorChoice, choicePink,choiceBlue,choicePurple,choiceGreen, toolGrab, sewingSimulation, finalResult
 
 //let overPink = true;
 
@@ -164,7 +165,7 @@ function draw() {
         fill(blackColor);
         textAlign(CENTER,CENTER);
         textSize(instructionTitle.size);
-        text(`Choose the garment you wish to sew!`,width/2,height/6);
+        text(`Choose the garment you wish to sew!`,width/2,height/10);
         pop();
 
         //images of the garments in black and white
@@ -192,7 +193,7 @@ function draw() {
         background(blackColor);
 
         imageMode(CENTER);
-        image(pants,width - 50, height - 850 ,100,125);//if the user presses p and chooses the pants they will be put at the top corner right of the screen
+        image(pants,1220,height/8,100,125);//if the user presses p and chooses the pants they will be put at the top corner right of the screen
 
         state = `colorChoice`;
     }
@@ -200,7 +201,7 @@ function draw() {
         background(blackColor);
 
         imageMode(CENTER);
-        image(jacket,width - 55, height - 850 ,80,105);//if the user presses j and chooses the jacket it will be put at the top corner right of the screen
+        image(jacket,1220, height/8 ,80,105);//if the user presses j and chooses the jacket it will be put at the top corner right of the screen
 
         state = `colorChoice`;
     }
@@ -208,7 +209,7 @@ function draw() {
         background(blackColor);
 
         imageMode(CENTER);
-        image(shirt,width - 55, height - 850 ,100,100);//if the user presses s and chooses the shirt it will be put at the top corner right of the screen
+        image(shirt,1220, height/8 ,100,100);//if the user presses s and chooses the shirt it will be put at the top corner right of the screen
 
         state = `colorChoice`;
     }
@@ -221,26 +222,13 @@ function draw() {
         textAlign(CENTER,CENTER);
         textSize(instructionTitle.size);
         text(`Pick a color for your fabric!`,width/2,height/6);
-        
-        //pink = strokeWeight = strokeWeight + pinkFabric.strokeWeight;
-        //pink.mouseOver(choosePink);
-
-        //if mouse goes over the pink fabric then a pink stroke will be seen on the circle
-       // if (overPink === true) {
-          //  stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
-            //strokeWeight(pinkFabric.strokeWeight);
-       // }
-        //else {
-            //noStroke();
-       // }//if mouse is not over the pink fabric circle nothing will happen
-
 
         //display of pink fabric
         push();
         ellipseMode(CENTER);
         noStroke();
         fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
-        ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size);
+        ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size + pinkfabric.strokeWeight);
         pop();
         
         //display of blue fabric
@@ -248,7 +236,7 @@ function draw() {
         ellipseMode(CENTER);
         noStroke();
         fill(blueFabric.fill.red,blueFabric.fill.green,blueFabric.fill.blue);
-        ellipse(blueFabric.x,blueFabric.y,blueFabric.size);
+        ellipse(blueFabric.x,blueFabric.y,blueFabric.size + blueFabric.strokeWeight);
         pop();
 
         //display of purple fabric
@@ -256,7 +244,7 @@ function draw() {
         ellipseMode(CENTER);
         noStroke();
         fill(purpleFabric.fill.red,purpleFabric.fill.green,purpleFabric.fill.blue);
-        ellipse(purpleFabric.x,purpleFabric.y,purpleFabric.size);
+        ellipse(purpleFabric.x,purpleFabric.y,purpleFabric.size + purpleFabric.strokeWeight);
         pop();
 
         //display of green fabric
@@ -264,21 +252,42 @@ function draw() {
         ellipseMode(CENTER);
         noStroke();
         fill(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
-        ellipse(greenFabric.x,greenFabric.y,greenFabric.size);
+        ellipse(greenFabric.x,greenFabric.y,greenFabric.size + greenFabric.strokeWeight);
         pop();
-
-       
-         
-
-       
-        
-        
-
-
     }
+     
+
+
+    //tried this so when the mouse clicks on the pink circle the state changes but doesnt work rip
+    //if (mousIsPressed === true && (mouseX < pinkFabric.x + pinkFabric.radius || mouseX > pinkFabric.x - pinkFabric.radius || mouseY < pinkFabric.y + pinkFabric.radius || mouseY > pinkFabric.y - pinkFabric.radius)) {
+        //state = `choicePink`
+        
+   // }
+
+
+    //if (state === `choicePink`) {
+
+        //display of pink fabric at corner right of screen
+        //push();
+        ///ellipseMode(CENTER);
+        //noStroke();
+        //fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
+       // ellipse(1220,height/8,20);
+       // pop();
+
+   // }
+
+   //tried almost the same thing with the function mousePressed and also didnt work rip
+   //function mousePressed() {
+    //if (state === `colorChoice`  && (mouseX < pinkFabric.x + pinkFabric.radius || mouseX > pinkFabric.x - pinkFabric.radius || mouseY < pinkFabric.y + pinkFabric.radius || mouseY > pinkFabric.y - pinkFabric.radius)) {
+    //state = `choicePink`
+    //click.play();
+   //}
+
+
+
 }
 
- 
 function mouseMoved() {
     //if the mouse goes over the pink fabric circle it will make the strokeweight pink
    let dPink = dist(mouseX,mouseY,pinkFabric.x,pinkFabric.y);
@@ -296,7 +305,6 @@ function mouseMoved() {
 
     //if the mouse is not over the pink fabric circle the pink strokeweight disappears
     if (dPink > pinkFabric.radius) {
-        console.log("NOT OVER PINK")
         //display of pink fabric with NO strokeweight
         push();
         ellipseMode(CENTER);
@@ -323,7 +331,6 @@ function mouseMoved() {
 
     //if the mouse is not over the blue fabric circle the pink strokeweight disappears
     if (dBlue > blueFabric.radius) {
-        console.log("NOT OVER BLUE")
         //display of blue fabric with NO strokeweight
         push();
         ellipseMode(CENTER);
@@ -336,7 +343,7 @@ function mouseMoved() {
 
     //if the mouse goes over the purple fabric circle it will make the strokeweight pink
     let dPurple = dist(mouseX,mouseY,purpleFabric.x,purpleFabric.y);
-    if (dPurple < PurpleFabric.radius) {
+    if (dPurple < purpleFabric.radius) {
         console.log("OVER PURPLE")
         //display of purple fabric with strokeweight
         push();
@@ -350,7 +357,6 @@ function mouseMoved() {
 
     //if the mouse is not over the purple fabric circle the pink strokeweight disappears
     if (dPurple > purpleFabric.radius) {
-        console.log("NOT OVER PURPLE")
         //display of  fabric with NO strokeweight
         push();
         ellipseMode(CENTER);
@@ -361,80 +367,37 @@ function mouseMoved() {
         pop();
     }
 
+     //if the mouse goes over the green fabric circle it will make the strokeweight pink
+     let dGreen = dist(mouseX,mouseY,greenFabric.x,greenFabric.y);
+     if (dGreen < greenFabric.radius) {
+         console.log("OVER GREEN")
+         //display of green fabric with strokeweight
+         push();
+         ellipseMode(CENTER);
+         stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
+         strokeWeight(greenFabric.strokeWeight);
+         fill(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
+         ellipse(greenFabric.x,greenFabric.y,greenFabric.size);
+         pop();
+     }
 
-
-
-
-
+     //if the mouse is not over the green fabric circle the pink strokeweight disappears
+    if (dGreen > greenFabric.radius) {
+        //display of  fabric with NO strokeweight
+        push();
+        ellipseMode(CENTER);
+        stroke(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
+        strokeWeight(greenFabric.strokeWeight);
+        fill(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
+        ellipse(greenFabric.x,greenFabric.y,greenFabric.size);
+        pop();
+    }
 
 }
-    
 
 
 
 
-
-
-
-
-
-
-
-//function mouseMoved() {
-    //let d = dist(mouseX,mouseY,pinkFabric.x,pinkFabric.y);
-    //if (d < pinkFabric.radius) {
-        //console.log("OVER PINK")
-        //display of pink fabric with strokeweight
-        //push();
-        //ellipseMode(CENTER);
-        //stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
-        //strokeWeight(pinkFabric.strokeWeight);
-        //fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
-        //ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size);
-       // pop();
-    //}
-//}
-
-
-
-
-//function mouseMoved() {
-    //let d = dist(mouseX,mouseY,pinkFabric.x,pinkFabric.y);
-   // while (d < pinkFabric.radius) {
-        //console.log("OVER PINK")
-        //display of pink fabric with strokeweight
-       // push();
-       // ellipseMode(CENTER);
-       // stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
-        //strokeWeight(pinkFabric.strokeWeight);
-       // fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
-        //ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size);
-        //pop();
-
-        //d = dist(mouseX,mouseY,pinkFabric.x,pinkFabric.y);
-
-    //}
-//}
-
-//function mouseHover() {
-    //is the mouse over the pink circle position
-    ///if (mouseX > pinkFabric.x - pinkFabric.radius && mouseX < pinkFabric.x + pinkFabric.radius && mouseY > pinkFabric.y - pinkFabric.radius && mouseY < pinkFabric.y + pinkFabric.radius ) {
-       // overPink = true;
-    //} //if mouse goes over the pink fabric circle then overPink is true and will happen, the strokeweight of the circle will be pink and thicker
-    //else {
-       // overPink = false;
-    //} //if mouse doesnt go over the pink fabric circle then overPink is false and nothing will happen
-    
-//}
-
-
-
-//function choosePink() {
-    
-    //stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
-    //strokeWeight = strokeWeight + pinkFabric.strokeWeight;
-    //ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size);
-//}
 
 function keyPressed() {
      //starting the simulation only if you press enter AND the current state is the title
