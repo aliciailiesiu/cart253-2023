@@ -103,9 +103,36 @@ let jacket; //jacket choice of garment at the beginning
 
 let shirt; //shirt choice of garment at the beginning
 
+let scissors; //scissors image 
+
+let pins; //pins image 
+
+let ruler; //ruler image
+
+let bobbin; //bobbin image
+
+let hanger; //hanger image
+
+let machine; //sewing machine image
+
+let ball; //ball image
+
+let needle; //needle image
+
+let designer = {
+    x: undefined,
+    y: undefined,
+    control: 1,
+    speed: 10,
+    vx: 0,
+    vy: 0,
+}
+
+let buttonSelection;
+
 let state = `title` //possible state = garmentChoice, choicePants,choiceJacket, choiceShirt ,colorChoice, choicePink,choiceBlue,choicePurple,choiceGreen, toolGrab, sewingSimulation, finalResult
 
-//let overPink = true;
+
 
 
 
@@ -119,6 +146,18 @@ function preload() {
     pants = loadImage(`assets/images/pants.png`);
     jacket = loadImage(`assets/images/jacket.png`);
     shirt = loadImage(`assets/images/shirt.png`);
+
+    scissors = loadImage(`assets/images/scissors.png`);
+    pins = loadImage(`assets/images/pins.png`);
+    ruler = loadImage(`assets/images/ruler.png`);
+    bobbin = loadImage(`assets/images/bobbin.png`);
+    hanger = loadImage(`assets/images/hanger.png`);
+    machine = loadImage(`assets/images/machine.png`);
+    ball = loadImage(`assets/images/ball.png`);
+    needle = loadImage(`assets/images/needle.png`);
+    designer = loadImage(`assets/images/designer.png`);
+
+
 }
 
 
@@ -127,7 +166,17 @@ function preload() {
 */
 function setup() {
 createCanvas(windowWidth,windowHeight);
+
+designer.vx = designer.vx + designer.speed
+designer.vy = designer.vy + designer.speed
+
+ //designer will be placed randomly on the canvas
+ designer.x = random(0,width);
+ designer.y = random(0,height);
 }
+
+
+
 
 
 /**
@@ -223,68 +272,90 @@ function draw() {
         textSize(instructionTitle.size);
         text(`Pick a color for your fabric!`,width/2,height/6);
 
-        //display of pink fabric
-        push();
-        ellipseMode(CENTER);
-        noStroke();
-        fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
-        ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size + pinkfabric.strokeWeight);
-        pop();
-        
-        //display of blue fabric
-        push();
-        ellipseMode(CENTER);
-        noStroke();
-        fill(blueFabric.fill.red,blueFabric.fill.green,blueFabric.fill.blue);
-        ellipse(blueFabric.x,blueFabric.y,blueFabric.size + blueFabric.strokeWeight);
-        pop();
+        // push();
+        // ellipseMode(CENTER);
+        // strokeWeight(pinkFabric.strokeWeight);
+        // stroke(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
+        // fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
+        // ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size);
+        // pop();
 
-        //display of purple fabric
-        push();
-        ellipseMode(CENTER);
-        noStroke();
-        fill(purpleFabric.fill.red,purpleFabric.fill.green,purpleFabric.fill.blue);
-        ellipse(purpleFabric.x,purpleFabric.y,purpleFabric.size + purpleFabric.strokeWeight);
-        pop();
 
-        //display of green fabric
-        push();
-        ellipseMode(CENTER);
-        noStroke();
-        fill(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
-        ellipse(greenFabric.x,greenFabric.y,greenFabric.size + greenFabric.strokeWeight);
-        pop();
+
+
     }
-     
-
-
-    //tried this so when the mouse clicks on the pink circle the state changes but doesnt work rip
-    //if (mousIsPressed === true && (mouseX < pinkFabric.x + pinkFabric.radius || mouseX > pinkFabric.x - pinkFabric.radius || mouseY < pinkFabric.y + pinkFabric.radius || mouseY > pinkFabric.y - pinkFabric.radius)) {
-        //state = `choicePink`
+    else if( state === `toolGrab`) {
+        background(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);//new background color
         
-   // }
+
+        //color choice text
+        textFont(bungeeShadeFont);
+        fill(blackColor);
+        textAlign(CENTER,CENTER);
+        textSize(instructionTitle.size);
+        text(`Grab your tools!`,width/2,height/6);
+
+        imageMode();
+        image(scissors,width * 1/2, height/2,100,100);
+        image(pins,width/4, height/4,100,100);
+        image(ruler,width - 300, height/2,100,100);
+        image(bobbin,width - 100, height - 50,100,100);
+        image(hanger,width - 1200, height - 60,100,100);
+        image(machine,width * 1/12, height/7,100,100);
+        image(ball,width - 150, height/8,100,100);
+        image(needle,width/3, height - 90,100,100);
+
+        noCursor();
+        image(designer,designer.x,designer.y,90,90);
+
+        //making designer interactive
+    //designer goes down
+    if (keyCode === DOWN_ARROW) { 
+        designer.y = designer.y + designer.control
+    }
+
+    //designer goes up
+    if(keyCode === UP_ARROW) {
+        designer.y = designer.y - designer.control
+    }
+    //designer goes left
+    if(keyCode === LEFT_ARROW) {  
+        designer.x = designer.x - designer.control
+    }
+    //designer goes right
+    if(keyCode === RIGHT_ARROW) {
+        designer.x = designer.x + designer.control
+    }
+        
 
 
-    //if (state === `choicePink`) {
-
-        //display of pink fabric at corner right of screen
-        //push();
-        ///ellipseMode(CENTER);
-        //noStroke();
-        //fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
-       // ellipse(1220,height/8,20);
-       // pop();
-
-   // }
-
-   //tried almost the same thing with the function mousePressed and also didnt work rip
-   //function mousePressed() {
-    //if (state === `colorChoice`  && (mouseX < pinkFabric.x + pinkFabric.radius || mouseX > pinkFabric.x - pinkFabric.radius || mouseY < pinkFabric.y + pinkFabric.radius || mouseY > pinkFabric.y - pinkFabric.radius)) {
-    //state = `choicePink`
-    //click.play();
-   //}
 
 
+
+    
+        // let dPink = dist(mouseX,mouseY,pinkFabric.x,pinkFabric.y);
+        // if (dPink < pinkFabric.radius) {
+
+        // push();
+        // ellipseMode(CENTER);
+        // noStroke();
+        // fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
+        // ellipse(1220,height/3,50);
+        // pop();
+        // }
+
+    }
+    
+     
+    // if (state ===`choicePink`) {
+
+    //     state = `toolGrab`
+
+        // background(blackColor);
+
+
+
+    
 
 }
 
@@ -301,7 +372,9 @@ function mouseMoved() {
         fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
         ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size);
         pop();
+
     }
+    
 
     //if the mouse is not over the pink fabric circle the pink strokeweight disappears
     if (dPink > pinkFabric.radius) {
@@ -392,10 +465,82 @@ function mouseMoved() {
         ellipse(greenFabric.x,greenFabric.y,greenFabric.size);
         pop();
     }
-
 }
 
+function mousePressed() {
+    //if mouse is pressed on the pink circle fabric then the pink fabric goes on corner right of the screen
+    let dPink = dist(mouseX,mouseY,pinkFabric.x,pinkFabric.y);
+    if (dPink < pinkFabric.radius) {
 
+        // push();
+        // ellipseMode(CENTER);
+        // noStroke();
+        // fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
+        // ellipse(1220,height/3,50);
+        // pop();
+
+        //click sound effect
+        click.play();
+
+        //state is now choicePink bc user chose pink fabric
+        state = `toolGrab`;
+    }
+        
+    //if mouse is pressed on the blue circle fabric then the blue fabric goes on corner right of the screen
+    let dBlue = dist(mouseX,mouseY,blueFabric.x,blueFabric.y);
+    if (dBlue < blueFabric.radius) {
+        
+        // push();
+        // ellipseMode(CENTER);
+        // noStroke();
+        // fill(blueFabric.fill.red,blueFabric.fill.green,blueFabric.fill.blue);
+        // ellipse(1220,height/3,50);
+        // pop();
+
+        //click sound effect
+        click.play();
+
+        //state is now choiceBlue bc user chose blue fabric
+        state = `toolGrab`;
+    }
+    
+    //if mouse is pressed on the purple circle fabric then the purple fabric goes on corner right of the screen
+    let dPurple = dist(mouseX,mouseY,purpleFabric.x,purpleFabric.y);
+    if (dPurple < purpleFabric.radius) {
+        
+        //display of purple fabric with strokeweight
+        // push()
+        // ellipseMode(CENTER);
+        // noStroke();
+        // fill(purpleFabric.fill.red,purpleFabric.fill.green,purpleFabric.fill.blue);
+        // ellipse(1220,height/3,50);
+       
+
+        //click sound effect
+        click.play();
+
+        //state is now choicePurple bc user chose purple fabric
+        state = `toolGrab`;
+    }
+
+    //if the mouse goes over the green fabric circle it will make the strokeweight pink
+    let dGreen = dist(mouseX,mouseY,greenFabric.x,greenFabric.y);
+    if (dGreen < greenFabric.radius) {
+        //display of green fabric with strokeweight
+        // push();
+        // ellipseMode(CENTER);
+        // noStroke();
+        // fill(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
+        // ellipse(1220,height/3,50);
+        // pop();
+
+        //click sound effect
+        click.play();
+
+        //state is now choicegreen bc user chose green fabric
+        state = `toolGrab`;
+    }
+}
 
 
 
