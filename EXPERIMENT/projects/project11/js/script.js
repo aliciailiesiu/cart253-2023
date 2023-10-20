@@ -234,7 +234,7 @@ let downArrow = {
     x: undefined,
     y: undefined,
     vy:0,
-    speed:3
+    speed:2
     
 }
 
@@ -242,7 +242,7 @@ let rightArrow = {
     x: undefined,
     y: undefined,
     vx:0,
-    speed:5
+    speed:2
     
 }
 
@@ -318,7 +318,7 @@ let choicePurple = false;
 let choiceGreen = false;
 
 
-let state = `sewingSimulation` //possible state = garmentChoice, choicePants,choiceJacket, choiceShirt ,colorChoice, toolGrab, sewingSimulation, finalResult
+let state = `loading` //possible state = garmentChoice, choicePants,choiceJacket, choiceShirt ,colorChoice, toolGrab, sewingSimulation, finalResult
 
 //used this to be able to see what is the actual width and height of the canvas
 //source is http://thenewcode.com/1181/Window-Window-Measuring-Screen-Sizes-with-JavaScript
@@ -378,8 +378,7 @@ function setup() {
     
     //making the designer we will be using in state `toolGrab` move 
     rightArrow.vx = rightArrow.vx + rightArrow.speed
-    
-    
+
     
 
     //making the x and the y be the same on any size screen so it is always centered
@@ -882,14 +881,16 @@ function draw() {
 
         downArrow.y = downArrow.y + downArrow.vy 
 
-        // let distanceArrowDown = dist(downArrow.x,downArrow.y,downArrow.x,sewingFabric.height)
-        // while (distanceArrowDown < sewingFabric.height/2 + downArrow.y/2) {
-        //     console.log('is at 0');
-        //     downArrow.y = 0
+        if (downArrow.y > height/2) {
+            downArrow.y = 0
+        }
 
-        //     distanceArrowDown = dist(downArrow.x,downArrow.y,sewingFabric.x,sewingFabric.height)
 
-        // }
+        rightArrow.x = rightArrow.x + rightArrow.vx 
+
+        if (rightArrow.x > width/2) {
+            rightArrow.x = width * 3/10
+        }
 
         push();
         imageMode(CENTER);
@@ -1012,6 +1013,31 @@ function draw() {
 
     else if (state === `loading`) {
         background(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);//new background color)
+
+        textFont(bungeeShadeFont);
+        fill(blackColor);
+        stroke(blackColor);
+        textAlign(CENTER,CENTER);
+        textSize(instructionTitle.size);
+        text(`LOADING...`,width/2,height/6);
+
+        rectMode(CENTER);
+        fill(blackColor);
+        rect(width/4,height/2,80,60);
+
+        setTimeout(loadingTwo,5000);
+
+
+        function loadingTwo() {
+        rectMode(CENTER);
+        fill(blackColor);
+        rect(width/3,height/2,80,60)
+        console.log(`rect appeared`)
+        }
+
+
+        
+        
     }
 }
 
@@ -1076,6 +1102,8 @@ function mousePressed() {
 
         choiceGreen = true;
     }
+
+
 }
 
 function keyPressed() {
