@@ -110,6 +110,7 @@ let greenFabric = {
     strokeWeight: 20
 }
 
+
 let arrows = {
     x: 0,
     y: 0,
@@ -201,7 +202,18 @@ let sewingFoot = {
     vx: 0,
     vy: 0,
     width: 20,
-    height: 30
+    height: 40
+}
+
+let sewingFootRight = {
+    x: undefined,
+    y: undefined,
+    control: 10,
+    speed: 10,
+    vx: 0,
+    vy: 0,
+    width: 20,
+    height: 40
 }
 
 let cautionText = {
@@ -218,7 +230,21 @@ let cautionText = {
     size: 40
 }
 
+let downArrow = {
+    x: undefined,
+    y: undefined,
+    vy:0,
+    speed:3
     
+}
+
+let rightArrow = {
+    x: undefined,
+    y: undefined,
+    vx:0,
+    speed:5
+    
+}
 
 
 let bungeeShadeFont;//title style font
@@ -271,7 +297,25 @@ let designerImage;// designer image
 
 let arrowsImage; //arrow image
 
-let sewingFootImage;//sewing foot image
+let downArrowImage;
+
+let rightArrowImage;
+
+let sewingFootImage = true;//sewing foot image when going down
+
+let sewingFootRightImage; //sewing foot image when going right
+
+let downSewing = true;
+
+let NotrightSewing = true;
+
+let choicePink = false;
+
+let choiceBlue = false;
+
+let choicePurple = false;
+
+let choiceGreen = false;
 
 
 let state = `sewingSimulation` //possible state = garmentChoice, choicePants,choiceJacket, choiceShirt ,colorChoice, toolGrab, sewingSimulation, finalResult
@@ -311,6 +355,9 @@ function preload() {
     arrowsImage = loadImage(`assets/images/arrows.png`);
 
     sewingFootImage = loadImage(`assets/images/sewingFoot.png`);
+    sewingFootRightImage = loadImage(`assets/images/sewingFootRight.png`);
+    downArrowImage = loadImage(`assets/images/downArrow.png`);
+    rightArrowImage = loadImage(`assets/images/rightArrow.png`);
 
 }
 
@@ -325,11 +372,35 @@ function setup() {
     //making the designer we will be using in state `toolGrab` move 
     sewingFoot.vx = sewingFoot.vx + sewingFoot.speed
     sewingFoot.vy = sewingFoot.vy + sewingFoot.speed
+
+    //making the designer we will be using in state `toolGrab` move 
+    downArrow.vy = downArrow.vy + downArrow.speed
+    
+    //making the designer we will be using in state `toolGrab` move 
+    rightArrow.vx = rightArrow.vx + rightArrow.speed
+    
+    
     
 
-     //making sure the position of x and y works on any screen, its also the starting point of the user designer
-     designerUser.x = width * 3/20;
-     designerUser.y = height/2;
+    //making the x and the y be the same on any size screen so it is always centered
+    pinkFabric.x = width/5;
+    pinkFabric.y = height/2;
+
+    //making the x and the y be the same on any size screen so it is always centered
+    blueFabric.x = width * 2/5;
+    blueFabric.y = height/2;
+
+    //making the x and the y be the same on any size screen so it is always centered
+    purpleFabric.x = width * 3/5;
+    purpleFabric.y = height/2;
+
+    //making the x and the y be the same on any size screen so it is always centered
+    greenFabric.x = width * 4/5;
+    greenFabric.y = height/2;
+
+    //making sure the position of x and y works on any screen, its also the starting point of the user designer
+    designerUser.x = width * 3/20;
+    designerUser.y = height/2;
 
     //making sure the position of x and y works on any screen
     scissors.x = width * 1/2;
@@ -363,9 +434,22 @@ function setup() {
     needle.x = width/3;
     needle.y = height * 21/25;
 
+    sewingFabric.x = width * 1/5;
+        sewingFabric.y = sewingFabric.y;
+        sewingFabric.width = width * 4/5;
+        sewingFabric.height = height * 22/25;
+
     sewingFoot.x = width * 1/4;
     sewingFoot.y = sewingFoot.y;
 
+    sewingFootRight.x = width * 1/4;
+    sewingFootRight.y = height * 20/25;
+
+    downArrow.x = width * 3/10;
+    downArrow.y = height/6;
+
+    rightArrow.x = width * 3/10;
+    rightArrow.y = height * 3/5;
     
     
 }
@@ -377,34 +461,34 @@ function draw() {
         background(blackColor);
 
         //title display
-        // push();
+        push();
         textFont(bungeeShadeFont);
         fill(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
         textAlign(CENTER,CENTER);
         textSize(title.size);
         text(`Welcome to my sewing simulation`,width/2,height/2);
-        // pop();
+        pop();
 
         //instruction display
-        // push();
+        push();
         textFont(bungeeShadeFont);
         fill(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
         textAlign(CENTER,CENTER);
         textSize(instructionTitle.size);
         text(`Press enter to start`,width/2,height/2 + instructionTitle.height);
-        // pop();
+        pop();
     }
     else if (state === `garmentChoice`) {
         background(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);//new background color
 
         //garment choice text
-        // push();
+        push();
         textFont(bungeeShadeFont);
         fill(blackColor);
         textAlign(CENTER,CENTER);
         textSize(instructionTitle.size);
         text(`Choose the garment you wish to sew!`,width/2,height/10);
-        // pop();
+        pop();
 
         //images of the garments in black and white
         imageMode(CENTER);
@@ -458,10 +542,121 @@ function draw() {
         textAlign(CENTER,CENTER);
         textSize(instructionTitle.size);
         text(`Pick a color for your fabric!`,width/2,height/6);
+
+        //if the mouse goes over the pink fabric circle it will make the strokeweight pink
+   let dPink = dist(mouseX,mouseY,pinkFabric.x,pinkFabric.y);
+   if (dPink < pinkFabric.radius) {
+       console.log("OVER PINK")
+       //display of pink fabric with strokeweight
+        push();
+        ellipseMode(CENTER);
+       stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
+       strokeWeight(pinkFabric.strokeWeight);
+       fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
+       ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size);
+       pop();
+   }
+
+
+   //if the mouse is not over the pink fabric circle the pink strokeweight disappears
+   if (dPink > pinkFabric.radius) {
+    //display of pink fabric with NO strokeweight
+    push();
+    ellipseMode(CENTER);
+    stroke(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
+    strokeWeight(pinkFabric.strokeWeight);
+    fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
+    ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size);
+    pop();
+}
+
+
+     //if the mouse goes over the blue fabric circle it will make the strokeweight pink
+    let dBlue = dist(mouseX,mouseY,blueFabric.x,blueFabric.y);
+    if (dBlue < blueFabric.radius) {
+        console.log("OVER BLUE")
+        //display of blue fabric with strokeweight
+        push();
+        ellipseMode(CENTER);
+        stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
+        strokeWeight(blueFabric.strokeWeight);
+        fill(blueFabric.fill.red,blueFabric.fill.green,blueFabric.fill.blue);
+        ellipse(blueFabric.x,blueFabric.y,blueFabric.size);
+        pop();
     }
-    if (state === `choicePink`) {
-        state = `toolGrab`;
+
+    //if the mouse is not over the blue fabric circle the pink strokeweight disappears
+    if (dBlue > blueFabric.radius) {
+        //display of blue fabric with NO strokeweight
+        push();
+        ellipseMode(CENTER);
+        stroke(blueFabric.fill.red,blueFabric.fill.green,blueFabric.fill.blue);
+        strokeWeight(blueFabric.strokeWeight);
+        fill(blueFabric.fill.red,blueFabric.fill.green,blueFabric.fill.blue);
+        ellipse(blueFabric.x,blueFabric.y,blueFabric.size);
+        pop();
     }
+
+   
+
+    //if the mouse goes over the purple fabric circle it will make the strokeweight pink
+    let dPurple = dist(mouseX,mouseY,purpleFabric.x,purpleFabric.y);
+    if (dPurple < purpleFabric.radius) {
+        console.log("OVER PURPLE")
+        //display of purple fabric with strokeweight
+        push();
+        ellipseMode(CENTER);
+        stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
+        strokeWeight(purpleFabric.strokeWeight);
+        fill(purpleFabric.fill.red,purpleFabric.fill.green,purpleFabric.fill.blue);
+        ellipse(purpleFabric.x,purpleFabric.y,purpleFabric.size);
+        pop();
+    }
+
+    //if the mouse is not over the purple fabric circle the pink strokeweight disappears
+    if (dPurple > purpleFabric.radius) {
+        //display of  fabric with NO strokeweight
+        push();
+        ellipseMode(CENTER);
+        stroke(purpleFabric.fill.red,purpleFabric.fill.green,purpleFabric.fill.blue);
+        strokeWeight(purpleFabric.strokeWeight);
+        fill(purpleFabric.fill.red,purpleFabric.fill.green,purpleFabric.fill.blue);
+        ellipse(purpleFabric.x,purpleFabric.y,purpleFabric.size);
+        pop();
+    }
+
+   
+
+     //if the mouse goes over the green fabric circle it will make the strokeweight pink
+     let dGreen = dist(mouseX,mouseY,greenFabric.x,greenFabric.y);
+     if (dGreen < greenFabric.radius) {
+         console.log("OVER GREEN")
+         //display of green fabric with strokeweight
+         push();
+         ellipseMode(CENTER);
+         stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
+         strokeWeight(greenFabric.strokeWeight);
+         fill(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
+         ellipse(greenFabric.x,greenFabric.y,greenFabric.size);
+         pop();
+     }
+
+     //if the mouse is not over the green fabric circle the pink strokeweight disappears
+    if (dGreen > greenFabric.radius) {
+        //display of  fabric with NO strokeweight
+        push();
+        ellipseMode(CENTER);
+        stroke(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
+        strokeWeight(greenFabric.strokeWeight);
+        fill(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
+        ellipse(greenFabric.x,greenFabric.y,greenFabric.size);
+        pop();
+    }
+
+   
+    }
+
+
 
     if ( state === `toolGrab`) {
         background(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);//new background color
@@ -633,56 +828,92 @@ function draw() {
         designerUser.y = height
         }
     }
+    
     else if (state === `sewingSimulation`) {
         background(blackColor);
 
-        sewingFabric.x = width * 1/5;
-        sewingFabric.y = sewingFabric.y;
-        sewingFabric.width = width * 4/5;
-        sewingFabric.height = height * 22/25;
-
         
+
+
         push();
         rectMode(CORNER);
-        fill(sewingFabric.fill);
+        fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
         noStroke();
         rect(sewingFabric.x,sewingFabric.y,sewingFabric.width,sewingFabric.height);
         pop();
 
+        if (choicePink) {
+        push();
+        rectMode(CORNER);
+        fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
+        noStroke();
+        rect(sewingFabric.x,sewingFabric.y,sewingFabric.width,sewingFabric.height);
+        pop();
+        }
+        else if (choiceBlue) {
+        push();
+        rectMode(CORNER);
+        fill(blueFabric.fill.red,blueFabric.fill.green,blueFabric.fill.blue);
+        noStroke();
+        rect(sewingFabric.x,sewingFabric.y,sewingFabric.width,sewingFabric.height);
+        pop();
+        }
+        else if (choicePurple) {
+            push();
+            rectMode(CORNER);
+            fill(purpleFabric.fill.red,purpleFabric.fill.green,purpleFabric.fill.blue);
+            noStroke();
+            rect(sewingFabric.x,sewingFabric.y,sewingFabric.width,sewingFabric.height);
+            pop();
+            }
+            else if (choiceGreen) {
+                push();
+                rectMode(CORNER);
+                fill(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
+                noStroke();
+                rect(sewingFabric.x,sewingFabric.y,sewingFabric.width,sewingFabric.height);
+                pop();
+                }
+
+
+
+
+
+
+        downArrow.y = downArrow.y + downArrow.vy 
+
+        // let distanceArrowDown = dist(downArrow.x,downArrow.y,downArrow.x,sewingFabric.height)
+        // while (distanceArrowDown < sewingFabric.height/2 + downArrow.y/2) {
+        //     console.log('is at 0');
+        //     downArrow.y = 0
+
+        //     distanceArrowDown = dist(downArrow.x,downArrow.y,sewingFabric.x,sewingFabric.height)
+
+        // }
+
+        push();
+        imageMode(CENTER);
+        image(downArrowImage,downArrow.x,downArrow.y);
+        pop();
+
+        push();
+        imageMode(CORNER);
+        image(rightArrowImage,rightArrow.x,rightArrow.y);
+        pop();
+
+        
+
         //sewing machine simulation text
-        // push();
+        push();
         textFont(bungeeShadeFont);
-        stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
-        fill(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
+        stroke(blackColor);
+        fill(blackColor);
         textAlign(CENTER,CENTER);
         textSize(instructionTitle.size);
         text(`start sewing!`,width/2,height/6);
-        // pop();
+        pop();
 
        
-        //making sewing machine interactive
-            
-            // //machine goes right
-            // if(keyCode === RIGHT_ARROW && state === `sewingSimulation`) {
-            // console.log ("right arrow");
-            // sewingFoot.x = sewingFoot.x + sewingFoot.control;
-            // }
-
-
-        //      //making sure the designer controlled by user stays on the screen
-        // if (sewingMachine.x > width) {
-        //     sewingMachine.x = 0
-        //     }
-        //     else if (sewingMachine.x < 0) {
-        //         sewingMachine.x = width
-        //     }
-    
-        //     if (sewingMachine.y > height) {
-        //         sewingMachine.y = 0
-        //     }
-        //     else if (sewingMachine.y < 0) {
-        //         sewingMachine.y = height
-        //     }
 
             //setting dash line
             push();
@@ -693,186 +924,104 @@ function draw() {
             line(width * 1/4,10,sewingFoot.x,sewingFoot.y);
             pop();
 
-            imageMode(CENTER);
-            image(sewingFootImage,sewingFoot.x,sewingFoot.y,sewingFoot.width,sewingFoot.height);
+            if (NotrightSewing === false) {
+                
+                //setting dash line
+                push();
+                stroke(0);
+                strokeWeight(2);
+                noFill();
+                setLineDash([5, 5])
+                line(width * 1/4,height * 20/25,sewingFootRight.x,sewingFootRight.y);
+                pop();
+                }
+           
             
             if(keyCode === UP_ARROW && state === `sewingSimulation`) {
                 console.log ("up");
-                // push();
+                push();
                 textFont(bungeeShadeFont);
                 fill(cautionText.fill.red,cautionText.fill.green,cautionText.fill.blue);
                 stroke(cautionText.stroke.red,cautionText.stroke.green,cautionText.stroke.blue);
                 textAlign(CENTER,CENTER);
                 textSize(cautionText.size);
                 text(`PAY ATTENTION YOU ARE NOT SEWING STRAIGHT!`,width/2,height/2);
-                // pop();
+                pop();
             }
 
             if(keyCode === LEFT_ARROW && state === `sewingSimulation`) {
                 console.log ("left");
-                // push();
+                push();
                 textFont(bungeeShadeFont);
                 fill(cautionText.fill.red,cautionText.fill.green,cautionText.fill.blue);
                 stroke(cautionText.stroke.red,cautionText.stroke.green,cautionText.stroke.blue);
                 textAlign(CENTER,CENTER);
                 textSize(cautionText.size);
                 text(`PAY ATTENTION YOU ARE NOT SEWING STRAIGHT!`,width/2,height/2);
-                // pop();
+                pop();
             }
 
-            if(keyCode === RIGHT_ARROW && state === `sewingSimulation`) {
+            if(keyCode === RIGHT_ARROW && state === `sewingSimulation` && NotrightSewing === true) {
                 console.log ("right");
-                // push();
+                push();
                 textFont(bungeeShadeFont);
                 fill(cautionText.fill.red,cautionText.fill.green,cautionText.fill.blue);
                 stroke(cautionText.stroke.red,cautionText.stroke.green,cautionText.stroke.blue);
                 textAlign(CENTER,CENTER);
                 textSize(cautionText.size);
                 text(`PAY ATTENTION YOU ARE NOT SEWING STRAIGHT!`,width/2,height/2);
-                // pop();
+                pop();
             }
 
-            if (sewingFoot.y > height * 21/25) {
+            if (sewingFootImage) {
+                imageMode(CENTER);
+                image(sewingFootImage,sewingFoot.x,sewingFoot.y,sewingFoot.width,sewingFoot.height)
+                }
+
+            if (sewingFoot.y > height * 20/25) {
                 console.log("rotate");
-                // push();
+                push();
                 angleMode(DEGREES);
-                rotate(90);
-                image(sewingFootImage,sewingFoot.x,sewingFoot.y,sewingFoot.width,sewingFoot.height);
-                // pop();
-            }
-    }
+                translate(sewingFootRight.x,sewingFootRight.y);
+                rotate(270);
+                imageMode(CENTER);
+                image(sewingFootRightImage,0,0,sewingFootRight.width,sewingFootRight.height);
+                pop();
 
+                sewingFootImage = false;
+            }
+            
+            if(keyCode === DOWN_ARROW && state === `sewingSimulation` && sewingFoot.y > height * 20/25) {
+                console.log ("down");
+                push();
+                textFont(bungeeShadeFont);
+                fill(cautionText.fill.red,cautionText.fill.green,cautionText.fill.blue);
+                stroke(cautionText.stroke.red,cautionText.stroke.green,cautionText.stroke.blue);
+                textAlign(CENTER,CENTER);
+                textSize(cautionText.size);
+                text(`PAY ATTENTION YOU ARE NOT SEWING STRAIGHT!`,width/2,height/2);
+                pop();
+
+                downSewing = false;
+            }
+            
+            if (sewingFootRight.x > width) {
+                state = `loading`
+            } 
 }
+
+    else if (state === `loading`) {
+        background(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);//new background color)
+    }
+}
+
     
 function setLineDash(list) {
     drawingContext.setLineDash(list);
   }
    
     
-    
 
-function mouseMoved() {
-
-    // //making the x and the y be the same on any size screen so it is always centered
-    pinkFabric.x = width/5;
-    pinkFabric.y = height/2;
-
-    //if the mouse goes over the pink fabric circle it will make the strokeweight pink
-   let dPink = dist(mouseX,mouseY,pinkFabric.x,pinkFabric.y);
-    if (dPink < pinkFabric.radius) {
-        console.log("OVER PINK")
-        //display of pink fabric with strokeweight
-        // push();
-       // ellipseMode(CENTER);
-        stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
-        strokeWeight(pinkFabric.strokeWeight);
-        fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
-        ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size);
-        // pop();
-    }
-    
-    //if the mouse is not over the pink fabric circle the pink strokeweight disappears
-    if (dPink > pinkFabric.radius) {
-        //display of pink fabric with NO strokeweight
-        // push();
-        ellipseMode(CENTER);
-        stroke(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
-        strokeWeight(pinkFabric.strokeWeight);
-        fill(pinkFabric.fill.red,pinkFabric.fill.green,pinkFabric.fill.blue);
-        ellipse(pinkFabric.x,pinkFabric.y,pinkFabric.size);
-        // pop();
-    }
-
-    //making the x and the y be the same on any size screen so it is always centered
-    blueFabric.x = width * 2/5;
-    blueFabric.y = height/2;
-
-     //if the mouse goes over the blue fabric circle it will make the strokeweight pink
-    let dBlue = dist(mouseX,mouseY,blueFabric.x,blueFabric.y);
-    if (dBlue < blueFabric.radius) {
-        console.log("OVER BLUE")
-        //display of blue fabric with strokeweight
-        // push();
-        ellipseMode(CENTER);
-        stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
-        strokeWeight(blueFabric.strokeWeight);
-        fill(blueFabric.fill.red,blueFabric.fill.green,blueFabric.fill.blue);
-        ellipse(blueFabric.x,blueFabric.y,blueFabric.size);
-        // pop();
-    }
-
-    //if the mouse is not over the blue fabric circle the pink strokeweight disappears
-    if (dBlue > blueFabric.radius) {
-        //display of blue fabric with NO strokeweight
-        // push();
-        ellipseMode(CENTER);
-        stroke(blueFabric.fill.red,blueFabric.fill.green,blueFabric.fill.blue);
-        strokeWeight(blueFabric.strokeWeight);
-        fill(blueFabric.fill.red,blueFabric.fill.green,blueFabric.fill.blue);
-        ellipse(blueFabric.x,blueFabric.y,blueFabric.size);
-        // pop();
-    }
-
-    //making the x and the y be the same on any size screen so it is always centered
-    purpleFabric.x = width * 3/5;
-    purpleFabric.y = height/2;
-
-    //if the mouse goes over the purple fabric circle it will make the strokeweight pink
-    let dPurple = dist(mouseX,mouseY,purpleFabric.x,purpleFabric.y);
-    if (dPurple < purpleFabric.radius) {
-        console.log("OVER PURPLE")
-        //display of purple fabric with strokeweight
-        // push();
-        ellipseMode(CENTER);
-        stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
-        strokeWeight(purpleFabric.strokeWeight);
-        fill(purpleFabric.fill.red,purpleFabric.fill.green,purpleFabric.fill.blue);
-        ellipse(purpleFabric.x,purpleFabric.y,purpleFabric.size);
-        // pop();
-    }
-
-    //if the mouse is not over the purple fabric circle the pink strokeweight disappears
-    if (dPurple > purpleFabric.radius) {
-        //display of  fabric with NO strokeweight
-        // push();
-        ellipseMode(CENTER);
-        stroke(purpleFabric.fill.red,purpleFabric.fill.green,purpleFabric.fill.blue);
-        strokeWeight(purpleFabric.strokeWeight);
-        fill(purpleFabric.fill.red,purpleFabric.fill.green,purpleFabric.fill.blue);
-        ellipse(purpleFabric.x,purpleFabric.y,purpleFabric.size);
-        // pop();
-    }
-
-    //making the x and the y be the same on any size screen so it is always centered
-    greenFabric.x = width * 4/5;
-    greenFabric.y = height/2;
-
-     //if the mouse goes over the green fabric circle it will make the strokeweight pink
-     let dGreen = dist(mouseX,mouseY,greenFabric.x,greenFabric.y);
-     if (dGreen < greenFabric.radius) {
-         console.log("OVER GREEN")
-         //display of green fabric with strokeweight
-        //  push();
-         ellipseMode(CENTER);
-         stroke(pinkColor.fill.red,pinkColor.fill.green,pinkColor.fill.blue);
-         strokeWeight(greenFabric.strokeWeight);
-         fill(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
-         ellipse(greenFabric.x,greenFabric.y,greenFabric.size);
-        //  pop();
-     }
-
-     //if the mouse is not over the green fabric circle the pink strokeweight disappears
-    if (dGreen > greenFabric.radius) {
-        //display of  fabric with NO strokeweight
-        // push();
-        ellipseMode(CENTER);
-        stroke(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
-        strokeWeight(greenFabric.strokeWeight);
-        fill(greenFabric.fill.red,greenFabric.fill.green,greenFabric.fill.blue);
-        ellipse(greenFabric.x,greenFabric.y,greenFabric.size);
-        // pop();
-    }
-}
 
 function mousePressed() {
     //if mouse is pressed on the pink circle fabric then the state changes
@@ -883,7 +1032,9 @@ function mousePressed() {
         click.play();
 
         //state is now toolGrab bc user chose pink fabric
-        state = `choicePink`;
+        state = `toolGrab`;
+
+        choicePink = true;
     }
         
     //if mouse is pressed on the blue circle fabric then the state changes
@@ -895,6 +1046,9 @@ function mousePressed() {
 
         //state is now toolGrab bc user chose blue fabric
         state = `toolGrab`;
+
+        choiceBlue = true;
+        
     }
     
     //if mouse is pressed on the purple circle fabric then the state changes
@@ -906,6 +1060,8 @@ function mousePressed() {
 
         //state is now toolGrab bc user chose purple fabric
         state = `toolGrab`;
+
+        choicePurple = true;
     }
 
     //if mouse is pressed on the green circle fabric then the state changes
@@ -917,6 +1073,8 @@ function mousePressed() {
 
         //state is now toolGrab bc user chose green fabric
         state = `toolGrab`;
+
+        choiceGreen = true;
     }
 }
 
@@ -946,23 +1104,33 @@ function keyPressed() {
     //     sewingFoot.x = sewingFoot.x + sewingFoot.control;
     // }
     //machine goes down
-    if (keyCode === DOWN_ARROW && state === `sewingSimulation`) { 
+
+
+
+    if (keyCode === DOWN_ARROW && state === `sewingSimulation` && downSewing === true) { 
         console.log ("down");
         sewingFoot.y = sewingFoot.y + sewingFoot.control;
     }
-    
-    
-    //     //designer goes left
-    // if(keyCode === LEFT_ARROW && state === `toolGrab`) { 
-    //     console.log ("left arrow"); 
-    //     designerUser.x = designerUser.x - designerUser.control;
+    // else if (keyCode === DOWN_ARROW && state === `sewingSimulation` && sewingFoot.y > height * 21/25) {
+    //     console.log ("down");
+    //     push();
+    //     textFont(bungeeShadeFont);
+    //     fill(cautionText.fill.red,cautionText.fill.green,cautionText.fill.blue);
+    //     stroke(cautionText.stroke.red,cautionText.stroke.green,cautionText.stroke.blue);
+    //     textAlign(CENTER,CENTER);
+    //     textSize(cautionText.size);
+    //     text(`PAY ATTENTION YOU ARE NOT SEWING STRAIGHT!`,width/2,height/2);
+    //     pop();
     // }
-    //     //designer goes right
-    // if(keyCode === RIGHT_ARROW && state === `toolGrab`) {
-    //     console.log ("right arrow");
-    //     designerUser.x = designerUser.x + designerUser.control;
-    // }
+    
+    if(keyCode === RIGHT_ARROW && state === `sewingSimulation` && sewingFoot.y > height * 20/25) {
+        console.log ("CHANGE OF KEY CODE ");
 
+        sewingFootRight.x = sewingFootRight.x + sewingFootRight.control;
+    
+        NotrightSewing = false;
+        
+    }
 
 }
 
