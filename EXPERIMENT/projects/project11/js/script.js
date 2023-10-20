@@ -1309,24 +1309,6 @@ function loading() {
     loadingInstruction();
     rectangleDisplay();
 
-
-        // setTimeout(loadingTwo,5000);
-
-
-        // // function loadingTwo() {
-        // rectMode(CENTER);
-        // fill(blackColor);
-        // rect(width/3,height/2,80,60)
-        // // console.log(`rect appeared`)
-        // // }
-
-        // rectMode(CENTER);
-        // fill(blackColor);
-        // rect(530,height/2,80,60)
-
-        // rectMode(CENTER);
-        // fill(blackColor);
-        // rect(width/2,height/2,80,60) 
 }
 
 function loadingInstruction() {
@@ -1455,22 +1437,6 @@ function doubleClicked() {
     if (state === `loading`) {
         state = `finalResult`
     }
-    // if (state === `loading`) {
-    //     console.log ("doubleclicked")
-    //     rectMode(CENTER);
-    //     fill(blackColor);
-    //     rect(width/3,height/2,80,60)
-
-    //     loadingTwo = true
-    // }
-
-    // if (state === `loading` && loadingTwo === true) {
-    //     rectMode(CENTER);
-    //     fill(blackColor);
-    //     rect(530,height/2,80,60)
-
-        
-    // }
 }
 
 //function made to set up the characters for the dash lines
