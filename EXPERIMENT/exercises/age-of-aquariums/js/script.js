@@ -1,7 +1,7 @@
 "use strict";
 
 let flies = [];
-let totalFlies = 20;
+let totalFlies = 10;
 
 
 
@@ -37,6 +37,8 @@ let actualTime = {
 let textInstruction = {
     size: 15
 };
+
+
 
 let currentTimeInSeconds; // Store the current time
 let targetTime ; // Use this to set a time in the future 
@@ -84,7 +86,7 @@ function createFly(x, y) {
     vx: 0,
     vy: 0,
     speed: 2,
-    totalFlies: 20
+    totalFlies: 10
   };
   return fly;
 }
@@ -114,6 +116,9 @@ else if (state === `simulation`) {
         displayFly(flies[i]);
         flySmaller(flies[i]);
         noMoreFlies(flies[i]);
+
+    // for (let i = 0; i < totalFlies; i++)
+    //     fliesLeftAfterTimer(flies[i])
     }
     // \
         // fill(255);
@@ -132,7 +137,16 @@ else if (state === `simulation`) {
 
 }
 else if (state === `lose`) {
-console.log('lose bitch')
+    console.log('loserrrr')
+    fill(whiteFill);
+    textSize(textInstruction.size);
+    text('TOO SLOW', width/2,height/2,);
+}
+else if (state === `win`) {
+    console.log('winnerrr')
+    fill(whiteFill);
+    textSize(textInstruction.size);
+    text('THAT WAS JUST LUCK TRY AGAIN', width/2,height/2,);
 }
 
 
@@ -184,9 +198,26 @@ function timeCount() {
     }
 }
 
+
+
+
+// function fliesLeftAfterTimer(fly) {
+
+//     if(fly.totalFlies === 0 && timerIsOn === true) {
+//         state = `win`;
+//     }
+// }
+
 function noMoreFlies(fly) {
+
     if(fly.totalFlies > 0 && timerIsOn === false) {
-        state = `lose`
+        state = `lose`;
+        console.log ('currently losing')
+        
+    }
+    else if (fly.totalFlies === 0 && timerIsOn) {
+        state = `win`;
+        console.log('currently winning')
     }
 }
 
@@ -195,12 +226,12 @@ function noMoreFlies(fly) {
 
 
 function flySmaller(fly) {
-    if (currentTimeInSeconds === 10) {
+    if (currentTimeInSeconds === timerAmount *1/3) {
         fly.size = 30;
         fly.speed = 3;
         
     }
-    if (currentTimeInSeconds === 20) {
+    if (currentTimeInSeconds === timerAmount *2/3) {
         fly.size = 10;
         fly.speed = 4;
     }
