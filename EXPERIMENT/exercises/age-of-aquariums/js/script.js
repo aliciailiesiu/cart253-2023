@@ -4,6 +4,7 @@ let flies = [];
 let totalFlies = 20;
 
 
+
 let sprayImage;
 let flyImage;
 
@@ -26,15 +27,25 @@ let bgShade = {
     }
 };
 
-let textInstruction = {
-    fill: 255,
+let whiteFill = 255;
+
+
+let actualTime = {
     size: 25
-}
+};
+
+let textInstruction = {
+    size: 15
+};
 
 let currentTimeInSeconds; // Store the current time
-let targetTime = 1 ; // Use this to set a time in the future 
-let timerAmount = 3; // Timers are 1 seconds in the future 
+let targetTime ; // Use this to set a time in the future 
+let timerAmount = 30; // Timers are 10 seconds in the future 
 let timerIsOn = false; // Check if your timer is on
+
+
+
+
 
 let state = `title` // other possible states : `simulation`, `win`, `lose`
 
@@ -49,6 +60,8 @@ function preload() {
 function setup() {
   createCanvas(600, 600);
 
+  
+  
 
     for (let i = 0; i < totalFlies; i++) {
         let fly = createFly(random(0, width), random(0, height));
@@ -70,7 +83,8 @@ function createFly(x, y) {
     size: 70,
     vx: 0,
     vy: 0,
-    speed: 2
+    speed: 2,
+    totalFlies: 20
   };
   return fly;
 }
@@ -80,44 +94,83 @@ function createFly(x, y) {
 function draw() {
   background(bgShade.fill.red,bgShade.fill.green,bgShade.fill.blue);
 
+  timeCount();
+
 if (state === `title`) {
     textAlign(CENTER,CENTER);
-    fill(textInstruction.fill);
+    fill(whiteFill);
     textSize(textInstruction.size);
     text(`YOU HAVE 30 SECONDS TO KILL ALL THE FLIES`,width/2,height/2);
 
     textAlign(CENTER,CENTER);
-    fill(textInstruction.fill);
+    fill(whiteFill);
     textSize(textInstruction.size);
     text(`PRESS ENTER TO START`,width/2,height/2 + textInstruction.size);
 }
 else if (state === `simulation`) {
 
     for (let i = 0; i < flies.length; i++) {
-        moveFly(flies[i]);   
-    }
-    for (let i = 0; i < flies.length; i++) {
+        moveFly(flies[i]);
         displayFly(flies[i]);
+        flySmaller(flies[i]);
+        noMoreFlies(flies[i]);
     }
+    // \
+        // fill(255);
+        // textAlign(CENTER,CENTER);
+        // text('targetTime is on!  It is set  for: ' +targetTime +'', width/2,height/2);
+        // text('timeramount is on, it is set for: '+timerAmount +'', width/2, height/4)
+       
+        
+        // targetTime = currentTimeInSeconds + timerAmount;
+        // targetTime = timerAmount;
+        // timerIsOn = true;
+
+    timeAndInstruction();
     moveUser();
     displayUser();
-    timeCount();
+
 }
+else if (state === `lose`) {
+console.log('lose bitch')
 }
 
-function timeCount() {
+
+// for (let i = 0; i < flies.length; i++) {
+//     flyGrows(flies[i]);
+//     }
+
+}
+
+function timeAndInstruction() {
     currentTimeInSeconds = round(millis()/1000); 
     // Round up the miliseconds to seconds 
-    fill(textInstruction.fill);
-    textSize(textInstruction.size);
+    textAlign(CENTER);
+    fill(whiteFill);
+    textSize(actualTime.size);
     text('Time: ' +currentTimeInSeconds, width/2,height/8,); // This is just since your sketch started
+
+    fill(whiteFill);
+    textSize(textInstruction.size);
+    text('THE FLIES WILL GET SMALLER AND FASTER BE QUICK', width/2,height/6,);
+}
+
+
+function timeCount() {
+    // currentTimeInSeconds = round(millis()/1000); 
+    // // Round up the miliseconds to seconds 
+    // fill(textInstruction.fill);
+    // textSize(textInstruction.size);
+    // text('Time: ' +currentTimeInSeconds, width/2,height/8,); // This is just since your sketch started
+
+    
 
     // Timer gets set when you press the mouse, it sets
     // a boolean to ON 
     if(timerIsOn){ 
         // If its on, say its on!
         print("timer is on");   
-        text('Timer is on!  It is set  for: ' +timerAmount +' seconds', 10, 250);
+        // text('Timer is on!  It is set  for: ' +timerAmount +' seconds', 10, 250);
         // If its on, AND the current time is past the
         // target time, say done and set it to false 
         if(currentTimeInSeconds > targetTime) { 
@@ -127,22 +180,31 @@ function timeCount() {
     } else { 
         // If timer is off, say off.
         print("timer off") 
-        text('Timer is OFF! ', 10, 250);
+        // text('Timer is OFF! ', 10, 250);
     }
-  }
+}
+
+function noMoreFlies(fly) {
+    if(fly.totalFlies > 0 && timerIsOn === false) {
+        state = `lose`
+    }
+}
 
 
 
-// for (let i = 0; i < flies.length; i++) {
-//     moveFly(flies[i]);
-    
-// }
- 
-// for (let i = 0; i < flies.length; i++) {
-//     displayFly(flies[i]);
-// }
 
-    
+
+function flySmaller(fly) {
+    if (currentTimeInSeconds === 10) {
+        fly.size = 30;
+        fly.speed = 3;
+        
+    }
+    if (currentTimeInSeconds === 20) {
+        fly.size = 10;
+        fly.speed = 4;
+    }
+}
 
 
 
@@ -156,7 +218,7 @@ function moveFly(fly) {
         fly.vy = random(-fly.speed, fly.speed);
   }
 
-    // let fly = createFly(random(0, width), random(0, height));
+    
     // Move the fish
     fly.x = fly.x + fly.vx;
     fly.y = fly.y + fly.vy;
@@ -165,10 +227,7 @@ function moveFly(fly) {
     fly.x = constrain(fly.x, 0, width);
     fly.y = constrain(fly.y, 0, height);
 
-    // for (let i = 0; i < flies.length; i++) {
-    //     moveFly(flies[i]);
-        
-    // }
+    
 }
 
 // displayFish(fish)
@@ -178,9 +237,7 @@ function displayFly(fly) {
     imageMode(CENTER);
     image(flyImage,fly.x,fly.y,fly.size,fly.size);
 
-    // for (let i = 0; i < flies.length; i++) {
-    //     displayFly(flies[i]);
-    // }
+  
 
 }
 
@@ -193,7 +250,7 @@ function moveUser() {
 function displayUser() {
 
     imageMode(CENTER);
-    noCursor();
+    // noCursor();
     image(sprayImage,user.x,user.y,user.width,user.height);
 }
 
@@ -219,15 +276,19 @@ function mousePressed() {
         break;
       }
     }
+
+
   }
 }
 function keyPressed() {
+    
     if (keyCode === ENTER && state === `title`) {
-        state = `simulation`
-        // When the mouse is pressed, set a new timer
-        // with the current time plus target time 
-        print("GO");
-        targetTime = currentTimeInSeconds + timerAmount;
+        state = `simulation`; 
+        // targetTime = currentTimeInSeconds + timerAmount;
+        targetTime = timerAmount;
         timerIsOn = true;
     }
+
 }
+
+// text('Timer is on!  It is set  for: ' +timerAmount +' seconds', 10, 250);
