@@ -12,18 +12,17 @@ let bgColor = 0;
 //paddle variable
 let paddle;
 
+//gravity variable
+let gravityForce = 0.0025;
+
+let balls = [];
+let numBalls = 5;
+
+
 
 
 
 "use strict";
-
-/**
- * Description of preload
-*/
-function preload() {
-
-
-}
 
 
 /**
@@ -32,7 +31,16 @@ function preload() {
 function setup() {
     createCanvas(windowWidth,windowHeight);
 
-   paddle = new Paddle(300,20);
+   paddle = new Paddle(100,20);
+   paddle.move();
+
+   for (i = 0; i < numBalls; i++) {
+    let x = random(0,width);
+    let y = (-400,-100);
+    let ball = new Ball(x,y);
+    balls.push(ball);
+   }
+  
 }
 
 
@@ -42,11 +50,17 @@ function setup() {
 function draw() {
     background(bgColor);
 
-    paddle.move();
+   
     paddle.display();
-    paddle.mousePressed();
+    paddle.keyPressed();
+    paddle.OffScreen();
+
+    for (i = 0; i < balls.length; i++) {
+        let ball = balls[i];
+        ball.gravity(gravityForce);
+        ball.move();
+        ball.bounce();
+        ball.display();
+    }
 }
 
-// function mousePressed() {
-    
-// }
