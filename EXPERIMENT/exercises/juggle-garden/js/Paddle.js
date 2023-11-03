@@ -12,7 +12,7 @@ class Paddle {
         };
         this.vx = 0;
         this.vy = 0;
-        this.speed = 10
+        this.speed = 5
         
     }
 
@@ -37,13 +37,8 @@ class Paddle {
 
     //making the paddle move with the keypressed function
     keyPressed() {
-        if (keyCode === UP_ARROW) {
-            this.y = this.y - this.speed;
-        }
-        else if (keyCode === DOWN_ARROW) {
-            this.y = this.y + this.speed;
-        }
-        else if ( keyCode === LEFT_ARROW) {
+       
+        if ( keyCode === LEFT_ARROW) {
             this.x = this.x - this.speed;
         }
         else if ( keyCode === RIGHT_ARROW) {

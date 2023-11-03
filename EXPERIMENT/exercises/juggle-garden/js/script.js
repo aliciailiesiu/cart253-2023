@@ -18,7 +18,8 @@ let gravityForce = 0.0025;
 let balls = [];
 let numBalls = 5;
 
-
+let fastBalls = [];
+let numFastBalls = 5
 
 
 
@@ -31,7 +32,7 @@ let numBalls = 5;
 function setup() {
     createCanvas(windowWidth,windowHeight);
 
-   paddle = new Paddle(100,20);
+   paddle = new Paddle(300,20);
    paddle.move();
 
    for (i = 0; i < numBalls; i++) {
@@ -39,6 +40,13 @@ function setup() {
     let y = (-400,-100);
     let ball = new Ball(x,y);
     balls.push(ball);
+   }
+
+   for (i = 0; i < numFastBalls; i++) {
+    let x = random(0,width);
+    let y = (-400,-100);
+    let fastBall = new Fastball(x,y);
+    fastBalls.push(fastBall);
    }
   
 }
@@ -57,10 +65,25 @@ function draw() {
 
     for (i = 0; i < balls.length; i++) {
         let ball = balls[i];
-        ball.gravity(gravityForce);
-        ball.move();
-        ball.bounce();
-        ball.display();
+        if(ball.active) {
+            ball.gravity(gravityForce);
+            ball.move();
+            ball.bounce(paddle);
+            ball.display();
+        }
     }
+
+    for (i = 0; i < fastBalls.length; i++) {
+        let fastBall = fastBalls[i];
+        if(fastBall.active) {
+            fastBall.gravity(gravityForce);
+            fastBall.move();
+            fastBall.bounce(paddle);
+            fastBall.display();
+        }
+    }
+
+
+
 }
 
