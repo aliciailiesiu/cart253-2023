@@ -15,6 +15,7 @@ class Fastball {
         this.maxSpeed = 10;
         this.size = 20;
         this.active = true;
+        this.score = 0;
     }
 
     //gravity of the ball
@@ -50,6 +51,8 @@ class Fastball {
             // bounce 
             this.vy = -this.vy;
             this.ay = 0;
+            //if ball bounces on paddle the score goes up
+            this.score++;
         }    
     }
 

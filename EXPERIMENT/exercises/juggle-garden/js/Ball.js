@@ -15,6 +15,7 @@ class Ball {
         this.maxSpeed = 10;
         this.size = 40;
         this.active = true;
+        this.score = 0;
     }
 
     gravity(force){
@@ -48,7 +49,10 @@ class Ball {
             // bounce 
             this.vy = -this.vy;
             this.ay = 0;
-        }    
+            //if ball bounces on paddle the score goes up
+            this.score++
+        }  
+        
     }
 
     display() {

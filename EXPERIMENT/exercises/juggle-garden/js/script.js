@@ -12,6 +12,26 @@ let bgColor = 0;
 //paddle variable
 let paddle;
 
+let score = 0;
+
+
+
+let pinkText = {
+    fill: {
+        r:250,
+        g:205,
+        b:228
+    }
+};
+
+let blueText = {
+    fill: {
+        r:107,
+        g:190,
+        b:242,
+    }
+}
+
 //gravity variable
 let gravityForce = 0.0025;
 
@@ -57,6 +77,14 @@ function setup() {
 */
 function draw() {
     background(bgColor);
+
+    push();
+    fill(pinkText.fill.r,pinkText.fill.g,pinkText.fill.b);
+    text(`ball count : ${score}`,width/8,height/8);
+    pop();
+
+
+
 
    
     paddle.display();
