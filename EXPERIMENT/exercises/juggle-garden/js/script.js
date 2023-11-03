@@ -16,21 +16,23 @@ let score = 0;
 
 
 
-let pinkText = {
+let greenText = {
     fill: {
-        r:250,
-        g:205,
-        b:228
-    }
+        r:155,
+        g:245,
+        b:66
+    },
 };
 
-let blueText = {
-    fill: {
-        r:107,
-        g:190,
-        b:242,
-    }
-}
+let titleText = 60;
+let smallText = 20;
+let align1 = 40;
+let align2 = 60;
+let align3 = 80;
+let align4 = 100;
+
+
+
 
 //gravity variable
 let gravityForce = 0.0025;
@@ -41,6 +43,7 @@ let numBalls = 5;
 let fastBalls = [];
 let numFastBalls = 5
 
+let state = `title` //other possible states : `simulation`, `lose`, `win`
 
 
 "use strict";
@@ -55,19 +58,7 @@ function setup() {
    paddle = new Paddle(300,20);
    paddle.move();
 
-   for (i = 0; i < numBalls; i++) {
-    let x = random(0,width);
-    let y = (-400,-100);
-    let ball = new Ball(x,y);
-    balls.push(ball);
-   }
-
-   for (i = 0; i < numFastBalls; i++) {
-    let x = random(0,width);
-    let y = (-400,-100);
-    let fastBall = new Fastball(x,y);
-    fastBalls.push(fastBall);
-   }
+   
   
 }
 
@@ -78,14 +69,73 @@ function setup() {
 function draw() {
     background(bgColor);
 
+
+
+    let noMoreBalls = true; // Are they all dead? Assume they are...
+for (let i = 0; i < balls.length; i++) {
+  if (balls[i].alive) {
+    noMoreBalls = false; // We found a living flower
+    break; // Stop searching the flowers
+  }
+}
+
+    let noMorefastBalls = true;
+for (let i = 0; i < fastBalls.length; i++) {
+  if (fastBalls[i].alive) {
+    noMorefastBalls = false; // We found a living flower
+    break; // Stop searching the flowers
+  }
+}
+
+
+if (noMoreBalls && noMorefastBalls) {
+    state = `lose`;
+}
+
+
+    if (state === `title`) {
+        push();
+        fill(greenText.fill.r,greenText.fill.g,greenText.fill.b);
+        textAlign(CENTER,CENTER);
+        textSize(titleText);
+        text(`PRESS ENTER TO START`,width/2,height/2);
+        pop();
+
+        push();
+        fill(greenText.fill.r,greenText.fill.g,greenText.fill.b);
+        textAlign(CENTER,CENTER);
+        textSize(smallText);
+        text(`Use arrows to move paddle`,width/2,height/2 + align1);
+        pop();
+
+        push();
+        fill(greenText.fill.r,greenText.fill.g,greenText.fill.b);
+        textAlign(CENTER,CENTER);
+        textSize(smallText);
+        text(`pink ball = 1 point`,width/2,height/2 + align2);
+        pop();
+
+        push();
+        fill(greenText.fill.r,greenText.fill.g,greenText.fill.b);
+        textAlign(CENTER,CENTER);
+        textSize(smallText);
+        text(`blue ball = 2 points`,width/2,height/2 + align3);
+        pop();
+
+        push();
+        fill(greenText.fill.r,greenText.fill.g,greenText.fill.b);
+        textAlign(CENTER,CENTER);
+        textSize(smallText);
+        text(`Make 10 points to win the game!`,width/2,height/2 + align4);
+        pop();
+
+    }
+    else if (state === `simulation`) {
+
     push();
-    fill(pinkText.fill.r,pinkText.fill.g,pinkText.fill.b);
+    fill(greenText.fill.r,greenText.fill.g,greenText.fill.b);
     text(`ball count : ${score}`,width/8,height/8);
     pop();
-
-
-
-
    
     paddle.display();
     paddle.keyPressed();
@@ -110,8 +160,14 @@ function draw() {
             fastBall.display();
         }
     }
-
-
+}
+else if (state === `lose`) {
 
 }
+}
 
+function keyPressed() {
+    if (state === `title` && keyCode === ENTER) {
+        state = `simulation`;
+    }
+}
