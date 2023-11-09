@@ -2,4 +2,4 @@
 
 this is a prototype for the anyhting project, this code comes from
 https://editor.p5js.org/RedHenDev/sketches/F1IPyLwj7.
-My goal for this project is to create a first person experience simulation. I want the user to be able to look around and to press the boxes to see some of his memories 
+My goal for this project is to create a mystery game where the player wakes up in the middle of a forest he doesnt know. He doesnt remember anything and doesnt know how he ended up there . He needs to deep-dive in his memories to remember what happened to him. The player will have to unlock certain memories by playing certain games and finding clues.

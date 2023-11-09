@@ -8,6 +8,7 @@
 "use strict";
 
 let boxes = [];
+let numBoxes = 40;
 
 // Player rotation.
 let theta = 0;
@@ -22,13 +23,12 @@ function setup(){
 				 windowHeight,WEBGL);
 	background(random(255),0,random(255));
 	
-	for (let i = 0; i < 100; i++){
-		boxes.push(new 
-				   Box(random(-width, width),
-					  random(-width, width),
-					  random(-width, width)));
-		
-		
+	for (let i = 0; i < numBoxes; i++){
+        let _x = random(-width, width);
+        let _y = random(-width, width);
+        let _z = random(-width, width);
+        let box = new Box(_x,_y,_z);
+		boxes.push(box);
 	}
 
 }
@@ -36,7 +36,7 @@ function setup(){
 function draw(){
 	background(200,0,200);
 	
-	checkInput();
+    checkInput();
 	
 	// Position at centre of 
 	// world, then rotate by
@@ -51,26 +51,24 @@ function draw(){
 	for (let i = 0; i < boxes.length; i++){	
 		boxes[i].render();
 	}
-
 }
-
-
-function checkInput(){
-	// Left arrow or A.
-	if (keyIsDown(37) || keyIsDown(65)){
-         theta = theta - 1;
-    }
-	// Right arrow or D.
-    if (keyIsDown(39) || keyIsDown(68)){
-        theta = theta + 1;
-    }
 	
-	// Move forwards please! :)
-	// Up arrow.
-	if (keyIsDown(38)){
-        px += sin(-radians(theta));
-        pz += cos(-radians(theta));
-    }
-	
+function checkInput() {
+    // Left arrow
+	if (keyIsDown(37)) {
+        theta = theta - 1;
+   }
+   // Right arrow
+   if (keyIsDown(39)) {
+       theta = theta + 1;
+   }
+   
+   // Move forwards please! :)
+   // Up arrow.
+   if (keyIsDown(38)) {
+       px += sin(-radians(theta));
+       pz += cos(-radians(theta));
+   }
+
 }
 
