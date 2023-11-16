@@ -1,32 +1,27 @@
-/**
- * Title of Project
- * Author Name
- * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
- */
-
 "use strict";
 
-/**
- * Description of preload
-*/
+let barkSFX;
+
 function preload() {
-
+  barkSFX = loadSound(`assets/sounds/bark.wav`);
 }
 
-
-/**
- * Description of setup
-*/
 function setup() {
-
+  createCanvas(600, 600);
+  userStartAudio()
 }
 
-
-/**
- * Description of draw()
-*/
 function draw() {
+  // Just to be cute, let's also change the background color
+  // based on whether the dog bark is currently playing
+  if (barkSFX.isPlaying()) {
+    background(255);
+  }
+  else {
+    background(0);
+  }
+}
 
+function mousePressed() {
+  barkSFX.play();
 }
