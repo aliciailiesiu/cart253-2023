@@ -66,9 +66,10 @@ offScreen() {
 }
 
 mousePressed() {
-    // Calculate the distance between this flower and the mouse
+    // Calculate the distance between this box and the mouse
     let d = dist(this.x,this.y,mouseX,mouseY);
-    // Check if the distance is less than the head of the flower
+    // Check if the distance is less than half of the square
+    //if it is make strokeweight thicker
     if (d < this.size/2) {
         push();
         fill(this.fill.r,this.fill.g,this.fill.b);
