@@ -87,4 +87,12 @@ function draw() {
 
 function mousePressed() {
     introduction.mousePressed();
+
+    // Loop through every flower in the garden
+    for (let i = 0; i < boxes.length; i++) {
+      // Get the current flower in the loop
+      let memoryBoxes = boxes[i];
+      // Call the flower's mousePressed() method
+      memoryBoxes.mousePressed();
+    }
 }

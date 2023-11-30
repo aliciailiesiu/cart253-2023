@@ -12,7 +12,14 @@ class MemoryBoxes {
         this.vx = 0;
         this.vy = 0;
         this.speed = 0.5;
-        this.distance = undefined;
+        this.strokeweight = 1;
+        this.stroke = {
+            r:44,
+            g:44,
+            b:158
+        };
+        
+        
         
     } 
 
@@ -38,6 +45,7 @@ display() {
     noStroke();
     rectMode(CENTER);
     rect(this.x,this.y,this.size);
+    pop();
 }
 
 offScreen() {
@@ -57,6 +65,22 @@ offScreen() {
     }
 }
 
+mousePressed() {
+    // Calculate the distance between this flower and the mouse
+    let d = dist(this.x,this.y,mouseX,mouseY);
+    // Check if the distance is less than the head of the flower
+    if (d < this.size/2) {
+        push();
+        fill(this.fill.r,this.fill.g,this.fill.b);
+        rectMode(CENTER);
+        stroke(this.stroke.r,this.stroke.g,this.stroke.b);
+        this.strokeweight = this.strokeweight + 10;
+        rect(this.x,this.y,this.size);
+        pop();
+        console.log(`clicked`)
+        
+    
+  }
 
-
+}
 }
