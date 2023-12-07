@@ -49,7 +49,7 @@ function preload() {
 function setup() {
     createCanvas(900, 550);
     state = new Introduction(); // We start in this state
-    memory1 = new Memory1();
+    // memory1 = new Memory1();
 }
 
 function draw() {

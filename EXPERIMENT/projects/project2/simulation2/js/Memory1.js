@@ -1,9 +1,13 @@
 class Memory1 {
     constructor() {
-        this.x = 777;
+        // this.frontX = 790;
+        // this.frontY = 186;
+        // this.backX = 395;
+        // this.backY = 93;
+        this.x = 790;
         this.y = 186;
         this.size = 20;
-        this.zoomedSize = 60;
+        this.zoomedSize = 400;
         this.textMemory1 = [
             `(Tim is walking home from work)`,
             `(As he walks he notices something unusal)`,
@@ -11,12 +15,14 @@ class Memory1 {
             `(Find and press on what Tim saw 
                 to see it more closely)`,
             `(Clue: Be Careful Of What you Whisper 
-                in the Forest, for Trees have Ears)`, 
+                in the Forest, for Trees have Ears)`,
+            ``, 
+
         ];
         // We need a variable to store the current line we want to display
         // It should start at ZERO because that's the first index in the array
         this.currentLine = 0;
-        // this.distanceMedallion = undefined;
+        this.backOfMedallion = false;
     }
 
         textSetup() {
@@ -32,7 +38,10 @@ class Memory1 {
             console.log("Memory 1");
             background(pathImage);
             //medallion image
+            push();
+            imageMode(CENTER);
             image(medallionFrontImage,this.x,this.y, this.size, this.size);
+            pop();
             this.textSetup();
 
             
@@ -51,14 +60,37 @@ class Memory1 {
 
             }
 
-            // this.distanceMedallion = dist(mouseX, mouseY, this.x, this.y);
-            if( mouseX === this.x && mouseY === this.y) {
-                image(medallionFrontImage,width/2,height/2, this.zoomedSize, this.zoomedSize);
-                console.log(`med touched`)
+
+            //if the mouse presses on the medallion it zooms in
+            if (mouseX > this.x - this.size/2 && mouseX < this.x + this.size/2 && mouseY > this.y - this.size/2 && mouseY < this.y + this.size/2 ) {
+
+            
+                push();
+                this.size = this.zoomedSize;
+                this.x = width/2;
+                this.y = height/2;
+                pop();
+                this.medallionDisplayText();
+            }
+
+            if (this.medallionDisplayText && mouseIsPressed) {
+                this.backOfMedallion = true
             }
             
-           
+            
+
+            if ( this.backOfMedallion === true) {
+                image(medallionBackImage,this.x, this.y ,this.size, this.size);
+            } console.log(`backdisplay`)
+            
         }
+
+        medallionDisplayText() {
+            textSize(26);
+            text(`Press medallion to see the back`,389,180)
+            console.log(`text`)
+        }
+        
 }
 
 
