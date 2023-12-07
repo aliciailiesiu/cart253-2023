@@ -3,19 +3,19 @@ class Introduction {
   constructor() {
 
     this.introduction = [
-      `PRESS MOUSE TO READ INTRO`,
+      `PRESS MOUSE TROUGHOUT THE GAME`,
       `GOOD LUCK`,
       `(You are Tim)`,
       `(You just woke up in a forest)`,
       `(You have no idea what happened to you)`,
-      `Where am I !!!`,
-      `What happened to me!!!!`,
-      `My head...someone must have hit me`,
-      `I need to get out of here`,
-      `Why can't I remember anything`,
-      `Ok Tim calm down and think first`,
-      `Think think think `,
-      `I need to focus and dive into my memories`
+      `"Where am I !!!"`,
+      `"What happened to me!!!!"`,
+      `"My head...someone must have hit me"`,
+      `"I need to get out of here"`,
+      `"Why can't I remember anything"`,
+      `"Ok Tim calm down and think first"`,
+      `"Think think think" `,
+      `"I need to focus and dive into my memories"`
     ];
     // We need a variable to store the current line we want to display
     // It should start at ZERO because that's the first index in the array
