@@ -14,6 +14,8 @@ class MemoryBoxes {
             g: 44,
             b: 158
         };
+        this.textFill = 255;
+        this.textSpace = 20;
         this.memoryScene = memoryScene; // The scene this memory box goes to
         
 
@@ -62,6 +64,24 @@ class MemoryBoxes {
         }
     }
 
+    instruction() {
+        push();
+        fill(this.textFill);
+        textSize(32);
+        text(`Press on your memories to go through them`, width/2, height/8);
+        pop();
+
+        push();
+        fill(this.textFill);
+        textSize(20)
+        textAlign(CENTER);
+        text(`Pink = memory 1`, width/8, height/5);
+        text(`Green = memory 2`, width/8, height/5 + this.textSpace);
+        text(`Orange = memory 3`, width/8, height/5 + this.textSpace *2);
+        text(`Turquoise = memory 4`, width/8, height/5 + this.textSpace *3);
+        pop();
+    }
+
     mousePressed() {
         // Calculate the distance between this box and the mouse
         let d = dist(this.x, this.y, mouseX, mouseY);
@@ -70,6 +90,7 @@ class MemoryBoxes {
         if (d < this.size / 2) {
             // Start this memory box's scene (the one in this.memoryScene)
             state = new this.memoryScene();
+
         }
     }
 }

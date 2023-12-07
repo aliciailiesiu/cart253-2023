@@ -19,6 +19,9 @@ let pathImage;
 let heartbeatSound;
 let shadowsFont;
 
+let medallionFrontImage;
+let medallionBackImage;
+
 let state; // Will store the current class that handles the state
 
 
@@ -37,13 +40,16 @@ function preload() {
     shadowsFont = loadFont(`assets/fonts/shadowsFont.ttf`);
 
     //https://pngtree.com/freebackground/photography-of-flower-path-in-the-park_1685433.html
-    pathImage = loadImage(`assets/images/memory.png`)
+    pathImage = loadImage(`assets/images/path.jpg`);
 
+    medallionFrontImage = loadImage(`assets/images/medallion_front.png`);
+    medallionBackImage = loadImage(`assets/images/medallion_back.png`);
 }
 
 function setup() {
-    createCanvas(900, windowHeight);
+    createCanvas(900, 550);
     state = new Introduction(); // We start in this state
+    memory1 = new Memory1();
 }
 
 function draw() {
@@ -53,3 +59,8 @@ function draw() {
 function mousePressed() {
     state.mousePressed();
 }
+
+// function mouseWheel() {
+//     memory1.mouseWheel();
+// }
+

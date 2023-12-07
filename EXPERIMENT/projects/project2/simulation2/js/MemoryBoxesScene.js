@@ -5,19 +5,19 @@ this.boxes = [];
 this.memoryData = [
 {
   scene: Memory1,
-  fill: color(255, 100, 100)
+  fill: color(245, 66, 221)
 },
 {
   scene: Memory2,
-  fill: color(255, 255, 255)
+  fill: color(194, 245, 66)
 },
 {
   scene: Memory3,
-  fill: color(255, 100, 100)
+  fill: color(245, 123, 66)
 },
 {
   scene: Memory4,
-  fill: color(255, 100, 100)
+  fill: color(56, 232, 229)
 }
 ]; // The scenes each memory box should lead to
 for (let i = 0; i < this.numBoxes; i++) {
@@ -49,6 +49,7 @@ for (let i = 0; i < this.numBoxes; i++) {
             memoryBoxes.move();
             memoryBoxes.display();
             memoryBoxes.offScreen();
+            memoryBoxes.instruction()
             console.log(`moved`)
         }
     }

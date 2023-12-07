@@ -21,6 +21,7 @@ class Introduction {
     // It should start at ZERO because that's the first index in the array
     this.currentLine = 0;
     this.fill = 0;
+    
   }
 
   draw() {
@@ -42,6 +43,12 @@ class Introduction {
 
   // mousePressed() moves to the next line in the soliloquy unless we've reached the end
   mousePressed() {
+
+    if (!heartbeatSound.isPlaying()) {
+      heartbeatSound.setVolume(2);
+      heartbeatSound.play();
+      heartbeatSound.loop();
+    }
     // Go to the next line in the soliloquy
     this.currentLine = this.currentLine + 1;
     // Check if we've reached the LENGTH of the array
@@ -53,12 +60,14 @@ class Introduction {
       state = new MemoryBoxesScene(); // Treat this as a state
       heartbeatSound.pause();
     }
-
-    if (state === new Introduction() ) {
-      heartbeatSound.setVolume(2);
-      heartbeatSound.play();
-      heartbeatSound.loop();
-    }
   }
-
 }
+
+  //   if (!heartbeatSound.isPlaying() && state === new Introduction()) {
+  //     heartbeatSound.setVolume(2);
+  //     heartbeatSound.play();
+  //     heartbeatSound.loop();
+  //   }
+  // }
+
+// }
