@@ -17,12 +17,24 @@ let pathImage;
 
 //heartbeat sound
 let heartbeatSound;
+
+let breakingInSound;
+
+let punchSound;
+
+let glassSmashSound;
+
 let shadowsFont;
+let robotoFont;
 
 let medallionFrontImage;
 let medallionBackImage;
 
 let computerScreenImage;
+
+let internetLogoImage;
+
+let skullImage;
 
 let state; // Will store the current class that handles the state
 
@@ -37,9 +49,16 @@ function preload() {
     //https://imgur.com/GCJRhiA
     memoryImage = loadImage(`assets/images/memory.png`)
 
+    https://pixabay.com/sound-effects/search/fist%20punch/
     heartbeatSound = loadSound(`assets/sounds/heartbeat.wav`);
+    breakingInSound = loadSound(`assets/sounds/breakingIn.mp3`);
+    punchSound = loadSound(`assets/sounds/punch.mp3`);
+    glassSmashSound = loadSound(`assets/sounds/glassSmash.mp3`);
+
 
     shadowsFont = loadFont(`assets/fonts/shadowsFont.ttf`);
+
+    robotoFont = loadFont(`assets/fonts/robotoFont.ttf`);
 
     //https://pngtree.com/freebackground/photography-of-flower-path-in-the-park_1685433.html
     pathImage = loadImage(`assets/images/path.jpg`);
@@ -50,6 +69,11 @@ function preload() {
 
     //https://images.app.goo.gl/Zghcsmx6P8MdioUq6
     computerScreenImage = loadImage(`assets/images/computerScreen.jpeg`);
+
+    //made the logo on illustrator
+    internetLogoImage = loadImage(`assets/images/internetLogo.png`);
+
+    skullImage = loadImage(`assets/images/skull.png`);
 
 
 }
