@@ -22,6 +22,8 @@ let shadowsFont;
 let medallionFrontImage;
 let medallionBackImage;
 
+let computerScreenImage;
+
 let state; // Will store the current class that handles the state
 
 
@@ -42,14 +44,21 @@ function preload() {
     //https://pngtree.com/freebackground/photography-of-flower-path-in-the-park_1685433.html
     pathImage = loadImage(`assets/images/path.jpg`);
 
+    //made them on illustrator
     medallionFrontImage = loadImage(`assets/images/medallion_front.png`);
     medallionBackImage = loadImage(`assets/images/medallion_back.png`);
+
+    //https://images.app.goo.gl/Zghcsmx6P8MdioUq6
+    computerScreenImage = loadImage(`assets/images/computerScreen.jpeg`);
+
+
 }
 
 function setup() {
     createCanvas(900, 550);
     state = new Introduction(); // We start in this state
     // memory1 = new Memory1();
+    
 }
 
 function draw() {

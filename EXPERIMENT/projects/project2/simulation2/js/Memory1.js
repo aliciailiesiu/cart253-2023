@@ -36,6 +36,7 @@ class Memory1 {
     }
 
        
+
         draw() {
             console.log("Memory 1");
             background(pathImage);
@@ -170,6 +171,6 @@ class Memory1 {
         
        
         
-}
 
+    }
 
