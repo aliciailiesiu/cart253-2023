@@ -4,6 +4,7 @@ class Introduction {
 
     this.introduction = [
       `PRESS MOUSE TROUGHOUT THE GAME`,
+      `PUT YOUR VOLUME UP`,
       `GOOD LUCK`,
       `(You are Tim)`,
       `(You just woke up in a forest)`,
