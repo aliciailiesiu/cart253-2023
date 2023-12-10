@@ -11,94 +11,157 @@ class Memory3 {
             `"Ok at least I can use my phone's flashlight`
         ];
         this.currentLine = 0;
-        this.invisibleEllipseSize = 60;
-        this.butcherKnifeX = 640;
-        this.butcherKnifeY = 260;
-        this.journalX = 870;
-        this.journalY = 230;
-        this.boxX = 260;
-        this.boxY = 420;
+        this.playbackRate = 0.6;
+        this.blackColor = 0;
+        this.whiteColor = 255;
+        this.redColor = {
+            r:255,
+            g:0,
+            b:0
+        };
+        this.dialogSize = 25;
+        this.checkBoxText = 20;
+        this.objectText = 15;
+        this.instructionText = 30;
         this.checkbox1 = createCheckbox();
-        this.checkbox1.position(800,100);
+        this.checkbox1.position(800,150);
         this.checkbox2 = createCheckbox();
-        this.checkbox2.position(800,90);
+        this.checkbox2.position(800,110);
         this.checkbox3 = createCheckbox();
-        this.checkbox3.position(800,80);
-        
-        
-       
+        this.checkbox3.position(800,70);
     }
 
     draw() {
         console.log("Memory 3");
-        
-        
+
         if (this.state === `intro`) {
-            
-           
-    
-
-            
-
-            background(0);
-            this.dialog = this.introText[this.currentLine];
-            // Display the string in that element on the canvas
-            push();
-            fill(255)
-            text(this.dialog, width / 2, height / 2);
-            pop();
-        
-
+            background(this.blackColor);
+            this.innerDialog();
         }
         else if (this.state === `flashlight`) {
-            
-            
-
-         
-
             background(basementImage);
-            push();
-            imageMode(CENTER)
-            image(lampImage,mouseX,mouseY)
-            pop();
+            this.lampDisplay();
+            this.textDisplay();
+            this.checkedBoxes();    
+        }
+        else if (this.state === `end`) {
+            background(this.blackColor);
 
-        //invisible circle circling the butcher knife, the journal article and the box so something happens when user presses on these objects
+            footstepsSound.rate(this.playbackRate);
+
+            this.instructions();
+            this.dialogText();
+        }
+    }
+        
+    innerDialog() {
+        this.dialog = this.introText[this.currentLine];
+        // Display the string in that element on the canvas
         push();
-        noFill();
-        noStroke();
-        ellipseMode(CENTER)
-        ellipse(this.butcherKnifeX,this.butcherKnifeY,this.invisibleEllipseSize);
-        ellipse(this.journalX, this.journalY, this.invisibleEllipseSize);
-        ellipse(this.boxX, this.boxY, this.invisibleEllipseSize);
+        fill(this.whiteColor);
+        text(this.dialog, width / 2, height / 2);
+        pop();
+    }
+
+    lampDisplay() {
+        push();
+        imageMode(CENTER)
+        image(lampImage,mouseX,mouseY)
+        pop();
+    }
+
+    textDisplay() {
+        //text next to object
+        push();
+        textAlign(CENTER);
+        textSize(this.objectText);
+        fill(this.blackColor);
+        text(`Butcher knife`, 640, 280);
+        text(`Journal`, 870, 250);
+        text(`Box`, 260, 420);
         pop();
 
-        if (this.checkbox1.checked) {
-            text(`DONE`,width/2,height/2)
-        }
-        
-       
+        //checkbox text
+        push();
+        textAlign(CORNER);
+        textSize(this.checkBoxText);
+        fill(this.whiteColor);
+        text(`Butcher knife`, 640, 140);
+        text(`Journal`, 640, 100);
+        text(`Box`, 640, 60);
+        pop();
+
+        //instructions
+        push();
+        textAlign(CORNER);
+        textSize(this.instructionText);
+        fill(this.whiteColor);
+        text(`Find the items listed and check\n them on the checkbox`, 100, 100);
+        pop();
     }
-}
-        
+
+    checkedBoxes() {
+        if (this.checkbox1.checked() && this.checkbox2.checked() && this.checkbox3.checked()) {
+            this.state = `end`;
+        } 
+    }
+
+    instructions() {
+        //instructions
+        push();
+        textAlign(CORNER);
+        textSize(this.checkBoxText);
+        fill(this.whiteColor);
+        text(`"SOMEONE IS COMING AND I HEAR THEM TALKING"`, 50, 20);
+        text(`Click anywhere to hear them too`, 50, 40);
+        pop();
+    }
+
+    dialogText() {
+        //stranger 1
+        push();
+        textAlign(CENTER);
+        textSize(this.dialogSize);
+        fill(this.whiteColor);
+        text(`Stranger 1: "Ok wtf do we do with him now"`, width/2, 150);
+        text(`Stranger 1: "I Don't know either, but killing him now \n will just make everything more complicated for us"`, width/2, 275);
+        text(`Stranger 1: "Lets just bring him to the woods and leave him there \n he'll be lost and probably die before the day is over"`, width/2, 425);
+        pop();
+
+        //stranger 2
+        push();
+        textAlign(CENTER);
+        textSize(this.dialogSize);
+        fill(this.redColor.r, this.redColor.g, this.redColor.b);
+        text(`Stranger 2: "I have yet to understand how he found out we existed"`, width/2, 200);
+        text(`Stranger 2: "You're right, I dont feel like getting my \n hands dirty today anyway, it's Sunday!"`, width/2, 350);
+        text(`Stranger 2: "Less work for us, let's go"`, width/2, 500);
+        pop();
+    }
 
     mousePressed() {
-
+        this.lines();
+        this.walking();
+    }
+        
+    lines() {
         if (this.state === `intro`) {
             // Go to the next line in the soliloquy
             this.currentLine = this.currentLine + 1;
             // Check if we've reached the LENGTH of the array
             // If we have, we've gone past the end because we started counting at 0
-            // The LENGTH of our array is 8, but the final element is at index 7
             if (this.currentLine === this.introText.length) {
-            // If we've gone past the end, go back one to the last real element
-            this.state = `flashlight`;
+                this.state = `flashlight`;
+            }
+        }
     }
-        if (this.state === `flashlight`) {
 
+    walking() {
+        if (this.state === `end` && !footstepsSound.isPlaying()) {
+            footstepsSound.play();
         }
-        }
+    }
+}
+
     
-}
 
-
-}

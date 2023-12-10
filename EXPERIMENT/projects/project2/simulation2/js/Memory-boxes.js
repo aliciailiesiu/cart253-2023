@@ -5,6 +5,7 @@ class MemoryBoxes {
         this.y = y;
         this.size = size;
         this.fill = fill;
+        this.memoryScene = memoryScene; // The scene this memory box goes to
         this.vx = 0;
         this.vy = 0;
         this.speed = 0.5;
@@ -16,13 +17,11 @@ class MemoryBoxes {
         };
         this.textFill = 255;
         this.textSpace = 20;
-        this.memoryScene = memoryScene; // The scene this memory box goes to
-        
-
-
+        this.instructionSize = 32;
+        this.memorytext = 20   
     }
 
-    //controled by the mouse only horizontally
+    //position of the boxes and speed
     setUpBox() {
         this.x = random(0, width);
         this.y = random(0, height);
@@ -31,13 +30,13 @@ class MemoryBoxes {
         this.vy = this.vy + this.speed;
     }
 
+    //how the boxes will move
     move() {
         this.x = this.x + this.vx;
         this.y = this.y + this.vy;
     }
 
-
-    //what the paddle will look like when it is displayed
+    //what the boxes will look like when it is displayed
     display() {
         push();
         fill(this.fill);
@@ -47,8 +46,8 @@ class MemoryBoxes {
         pop();
     }
 
+    //the boxes cannot go offscreen
     offScreen() {
-
         if (this.x > width) {
             this.vx = this.vx - 1
         }
@@ -67,18 +66,17 @@ class MemoryBoxes {
     instruction() {
         push();
         fill(this.textFill);
-        textSize(32);
+        textSize(this.instructionSize);
         text(`Press on your memories to go through them`, width/2, height/8);
         pop();
 
         push();
         fill(this.textFill);
-        textSize(20)
+        textSize(this.memorytext)
         textAlign(CENTER);
         text(`Pink = memory 1`, width/8, height/5);
         text(`Green = memory 2`, width/8, height/5 + this.textSpace);
         text(`Orange = memory 3`, width/8, height/5 + this.textSpace *2);
-        text(`Turquoise = memory 4`, width/8, height/5 + this.textSpace *3);
         pop();
     }
 
