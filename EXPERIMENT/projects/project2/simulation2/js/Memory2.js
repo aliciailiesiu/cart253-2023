@@ -8,7 +8,7 @@ class Memory2 {
             `"Heterai Deitxira Deviains"`,
         ]
         this.logoX = 405;
-        this.logoeY = 130;
+        this.logoY = 130;
         this.logoWidth = 80;
         this.logoHeight = 40;
         this.currentLine = 0;
