@@ -21,13 +21,13 @@ class Memory4 {
         if (this.state === `voice1`) {
             voice1Sound.rate(this.playbackRate);
         }
-        //     if (!voice1Sound.isPlaying()) {
-        //         this.state = `voice2`
-        //     }
-        // }
+            if (!voice1Sound.isPlaying()) {
+                this.state = `voice2`
+            }
+        
         // else if (this.state === `voice2`) {
         //     voice2Sound.rate(this.playbackRate);
-
+        // }
         //     if (!voice2Sound.isPlaying()) {
         //         this.state = `voice3`
         //     }

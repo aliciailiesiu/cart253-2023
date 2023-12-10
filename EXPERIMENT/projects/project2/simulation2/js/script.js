@@ -24,12 +24,12 @@ let punchSound;
 
 let glassSmashSound;
 
-let voice1Sound;
-let voice2Sound;
-let voice3Sound;
-let voice4Sound;
-let voice5Sound;
-let voice6Sound;
+// let voice1Sound;
+// let voice2Sound;
+// let voice3Sound;
+// let voice4Sound;
+// let voice5Sound;
+// let voice6Sound;
 
 let shadowsFont;
 let robotoFont;
@@ -43,6 +43,10 @@ let internetLogoImage;
 
 let skullImage;
 
+let basementImage;
+
+let lampImage;
+
 let state; // Will store the current class that handles the state
 
 
@@ -54,20 +58,26 @@ function preload() {
     forestImage = loadImage(`assets/images/forest.webp`);
 
     //https://imgur.com/GCJRhiA
-    memoryImage = loadImage(`assets/images/memory.png`)
+    memoryImage = loadImage(`assets/images/memory.png`);
 
-    https://pixabay.com/sound-effects/search/fist%20punch/
+    //https://images.app.goo.gl/dLeASzQm6Ffog7qU7 
+    basementImage = loadImage(`assets/images/basement.jpg`);
+
+    //made in illustrator
+    lampImage = loadImage(`assets/images/lamp.png`);
+
+    //https://pixabay.com/sound-effects/search/fist%20punch/
     heartbeatSound = loadSound(`assets/sounds/heartbeat.wav`);
     breakingInSound = loadSound(`assets/sounds/breakingIn.mp3`);
     punchSound = loadSound(`assets/sounds/punch.wav`);
     glassSmashSound = loadSound(`assets/sounds/glassSmash.mp3`);
 
-    voice1Sound = loadSound(`assets/sounds/voice1.mp3`);
-    voice2Sound = loadSound(`assets/sounds/voice2.mp3`);
-    voice3Sound = loadSound(`assets/sounds/voice3.mp3`);
-    voice4Sound = loadSound(`assets/sounds/voice4.mp3`);
-    voice5Sound = loadSound(`assets/sounds/voice5.mp3`);
-    voice6Sound = loadSound(`assets/sounds/voice6.mp3`);
+    // voice1Sound = loadSound(`assets/sounds/voice1.mp3`);
+    // voice2Sound = loadSound(`assets/sounds/voice2.mp3`);
+    // voice3Sound = loadSound(`assets/sounds/voice3.mp3`);
+    // voice4Sound = loadSound(`assets/sounds/voice4.mp3`);
+    // voice5Sound = loadSound(`assets/sounds/voice5.mp3`);
+    // voice6Sound = loadSound(`assets/sounds/voice6.mp3`);
 
     // voice1Sound.push(loadSound(`assets/sounds/voice1.mp3`));
     // voice2Sound.push(loadSound(`assets/sounds/voice2.mp3`));
