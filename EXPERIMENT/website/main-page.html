@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <title>In my own world</title>
+    <script src="script.js"></script>
+    
+    
+</head>
+<body>
+   
+
+    
+
+    <!-- code from https://codepen.io/carterfromsl/pen/LYqqVBX-->
+    <svg id="waterSvg">
+        <defs>
+          <filter id="disFilter">
+            <feTurbulence type="turbulence" baseFrequency="0.01" numOctaves="3" seed="1s" result="turbulence">
+              <animate attributeName="baseFrequency" values="0.01;0.005;0.01;" dur="30s" begin="0" repeatCount="indefinite"></animate>
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="30" xChannelSelector="R" yChannelSelector="B" result="displacement"></feDisplacementMap>
+          </filter>
+        </defs>
+      </svg>
+    
+
+    
+
+    <div class="container">
+        <div class="center-box"> <h2>HELLO,</h2><br> Welcome to my self-centered website <br> <h3>Where I have everything I need in one single place!</h3></div>
+    </div>
+
+    <a id='button-1' class="buttons" href='js/to-do-list.html'>make a to do list</a>
+    <a id='button-2' class="buttons" href='js/personal-diary.html'>write in my diary</a>
+    <a id='button-3' class="buttons" href='/https://aliciailiesiu.github.io/cart253-2023/EXPERIMENT/projects/project2/simulation2/'>play a mystery game </a>
+    <a id='button-4' class="buttons" href='https://aliciailiesiu.github.io/cart253-2023/EXPERIMENT/projects/project11/'>play a sewing simulation </a>
+    <a id='button-5' class="buttons" href='https://www.youtube.com/watch?v=xrKa5d1it3c&list=PL_ZnCc_3LyhmvIAZoY80JbgNkMyWivEOq'>play my favorite album </a>
+    <a id='button-6' class="buttons" href='https://www.pinterest.ca/aliciaavril6563/'>Go on pinterest </a>
+
+
+    <div id="interactive-container">
+        <button id="changeStyleButton" onclick="changePageStyle()">Spread the Cuteness!</button>
+        <p id="cuteMessage"></p>
+    </div>
+    <div class="add-note-button" onclick="addStickyNote()">Add Sticky Note</div>
+    
+</body>
+</html>

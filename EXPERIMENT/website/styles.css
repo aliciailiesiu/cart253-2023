@@ -1,0 +1,324 @@
+body {
+    font-family: 'Luckiest Guy', cursive;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    transition: background-color 0.3s ease-in-out;
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    align-content: center;
+}
+
+.center-box {
+    width: 900px;
+    height: 350px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    display: box;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    border-radius: 25px;
+    
+    
+  }
+
+.buttons {             
+                
+  
+    color: #FFF;                
+    background-color: #02060b;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #000000;
+    border-radius: 5px;
+  
+    width: 200px;
+    margin: 10px auto;
+}
+
+a:hover {
+    color: yellowgreen;
+    text-decoration: underline;
+}
+a:active {
+    color: red;
+}
+  a:visited:hover {
+    color: yellowgreen;
+}
+a:visited:active {
+    color: red;
+}
+
+#button-1 {
+    background-color: #fc03c2;
+}
+
+#button-2 {
+    background-color: #4c5270;
+}
+
+#button-3 {
+    background-color: #f58733;
+}
+
+#button-4 {
+    background-color: #24b9f0;
+}
+
+#button-5 {
+    background-color: #771f94;
+}
+
+#button-6 {
+    background-color: #25927a
+}
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+    color: white;
+}
+
+h2 {
+    font-size: 60px;  
+}
+
+h3 {
+    font-size: 25px;
+}
+
+
+
+#interactive-container {
+    text-align: center;
+}
+
+#changeStyleButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #ff7e5f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+
+#cuteMessage {
+    font-size: 24px;
+    margin-top: 20px;
+    color: white;
+}
+
+
+.footer {
+    order: 4;
+}
+
+
+/* code from https://codepen.io/carterfromsl/pen/LYqqVBX */
+* {
+    box-sizing: border-box;
+  }
+  
+  html {
+    background: #000 url(https://lucyscannabis.ca/wp-content/uploads/2023/09/Lucys-Pattern.png) center center repeat scroll;
+    background-size: 350px 350px;
+  }
+  
+  html::before {
+    content: "";
+    filter: url("#disFilter");
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    z-index: -1;
+    animation: bgscroll 25s linear infinite;
+    transform: scale(1.2);
+    position: fixed;
+  }
+  
+  @keyframes bgscroll {
+      0% {
+          background-position: 0 0;
+      }
+      100% {
+          background-position: 350px 350px;
+      }
+  }
+  
+  #waterSvg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  
+ 
+  
+  main {
+    background: white;
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 20px;
+    font-family: monospace;
+  }
+  /* till here */
+
+  .sticky-note {
+    width: 200px;
+    height: 100px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+    cursor: move;
+    user-select: none;
+    box-shadow: 10 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.add-note-button {
+    width: 150px;
+    background-color:#42133d ;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    margin: 5% 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+}
+
+p {
+    text-align: center;
+}
+
+/* to do list */
+.todo-list {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.todo-header {
+    padding: 20px;
+    text-align: center;
+    background-color: #3498db;
+    color: #fff;
+    border-bottom: 2px solid #2980b9;
+    border-radius: 10px 10px 0 0;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.custom-checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-checkbox:checked {
+    background-color: #3498db;
+    border-color: #3498db;
+    color: #fff;
+}
+
+.todo-text {
+    font-size: 16px;
+    color: #333;
+   
+}
+
+.add-task {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ecf0f1;
+}
+
+.task-input {
+    flex-grow: 1;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.add-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* personal journal */
+#diary {
+    width: 800px;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    min-height: 300px;
+}
+
+#entry {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+
+#save-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
